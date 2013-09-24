@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>The application is under the development - [P5.Indicatori]</title>
+        <title>Site is down for maintenence - [P5.Indicatori]</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <style>
         body { text-align: center; padding: 150px; }
@@ -15,7 +15,8 @@
     <body>
     <article>
         <h1>Site is temporary unavailable.</h1>
-        <p>&mdash; <a href="mailto:[smocanas@pentalog.fr]">[Mocanas Sergiu]</a></p>
+        <p>&mdash; [P5.Indicatori] - The application is under the development</p>
+        <p>&mdash; Please contact <a href="mailto:[smocanas@pentalog.fr]">[Mocanas Sergiu]</a> for further information</p>
     </article>
     </body>
 </html>
