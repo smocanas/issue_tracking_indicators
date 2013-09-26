@@ -75,3 +75,11 @@ doctrine_mongodb:
     document_managers:
         default:
             auto_mapping: true
+            
+#FOS Bundle Configuration
+fos_user:
+    db_driver: mongodb #other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: P5indicatori\UserBundle\Document\User
+    template:
+      engine: twig
