@@ -114,6 +114,9 @@ fos_user:
     user_class: P5indicatori\UserBundle\Document\User
     template:
       engine: twig
+    registration:
+        form:
+            type: p5indicatori_user_registration
 
 # Bootstrap Configuration
 bc_bootstrap:
