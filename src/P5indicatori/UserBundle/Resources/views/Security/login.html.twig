@@ -1,0 +1,41 @@
+{# Rewrite of login.html.twig of FOSBundle #}
+
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('costumCss/costumCssFosUserBundle/fosUserBundle.css') }}">
+{% endblock %}
+
+{% block fos_user_content %}
+    <form class="well form-horizontal login-form" action="{{ path("fos_user_security_check") }}" method="post">
+        <legend>
+            <div class="go-in-center">{{ 'Log in p5.indicatori'|trans({}, 'FOSUserBundle') }}</div>
+        </legend>
+        {# Error message. #}
+        {% if error %}
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                {{ 'Incorrect username or password. '|trans({}, 'FOSUserBundle') }}              
+            </div>
+        {% endif %}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+        <div class="control-group go-in-center">               
+            <input class="input-large" type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="{{ 'Username'|trans({}, 'FOSUserBundle') }}..." />
+        </div>
+
+        <div class="control-group go-in-center">
+            <input class="input-large" type="password" id="password" name="_password" required="required" placeholder="{{ 'Password'|trans({}, 'FOSUserBundle') }}..."/>
+        </div>
+
+        <div class="control-group checkbox-login">
+            <label class="checkbox" for="remember_me">
+                <input class="checkbox" type="checkbox" id="remember_me" name="_remember_me" value="on" >{{ 'Remember me'|trans({}, 'FOSUserBundle') }}
+            </label>
+        </div>
+        <div class="control-group go-in-center">
+            <input class="btn" type="submit" id="_submit" name="_submit" value="{{ 'Log in'|trans({}, 'FOSUserBundle') }}" />
+        </div>
+
+    </form>
+{% endblock fos_user_content %}

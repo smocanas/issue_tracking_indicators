@@ -1,0 +1,26 @@
+/* 
+    Document   : fosUserBundle
+    Created on : Sep 27, 2013, 2:39:54 PM
+    Author     : mtamazlicaru
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.login-form{
+    margin: auto;
+    margin-top: 20px;
+    width: 50%;
+}
+
+.go-in-center{
+    text-align:  center;
+}
+
+.checkbox-login{
+    margin-left: 32%;
+}
+
+.checkbox-login .checkbox{
+    min-height: 12px !important;
+}
+
