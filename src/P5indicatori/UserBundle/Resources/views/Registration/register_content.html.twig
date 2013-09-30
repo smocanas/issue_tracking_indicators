@@ -1,9 +1,11 @@
 {% trans_default_domain 'FOSUserBundle' %}
+{% form_theme form 'P5indicatoriUserBundle:Default:form_div_layout.html.twig' %}
 
-
-<form class="well form-horizontal login-form" action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
-    <legend><div class="go-in-center">{{ 'Register form'|trans }}</div></legend>
-     {{ form_widget(form, { 'attr': {'class': 'go-in-center'} }) }}
+<form class="well form-horizontal login-form go-in-center" action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+    <legend><div class="">{{ 'Register form'|trans }}</div></legend>
+     {{ form_row(form.email) }}
+     {{ form_row(form.username) }}
+     {{ form_row(form.plainPassword) }}
     <div class="control-group go-in-center" >
         <input class="btn" type="submit" value="{{ 'Register'|trans }}" />
     </div>
