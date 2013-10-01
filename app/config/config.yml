@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: "@P5indicatoriUserBundle/Resources/config/services.yml" }
 
 framework:
     #esi:             ~
@@ -123,3 +124,11 @@ bc_bootstrap:
     less_filter: lessphp
     assets_dir:  %kernel.root_dir%/../vendor/twitter/bootstrap
     jquery_path: %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.9.1.js
+
+# Disponible versions of jira/redmine
+parameters:
+  versions.jira_redmine:
+    - Jira 5
+    - Jira 4.4
+    - Redmine > 1.4
+    - Redmine 1.3

@@ -6,8 +6,11 @@
         Purpose of the stylesheet follows.
 */
 
-root { 
-    display: block;
+
+.user-panel{
+    border-bottom: 2px solid #aaa;
 }
 
-
+.project-title{
+    display: inline-block;
+}

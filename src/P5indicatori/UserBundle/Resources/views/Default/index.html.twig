@@ -1,7 +1,22 @@
 {% extends '::base.html.twig' %}
 
+    {% block stylesheets %}
+        {{ parent() }}
+        <link rel="stylesheet" href="{{ asset('costumCss/p5_indicatori.css') }}">
+        <link rel="stylesheet" href="{{ asset('costumCss/costumCssFosUserBundle/fosUserBundle.css') }}">
+    {% endblock %}
+        
 {% block body %}
-    <div class="span5 alert alert-success">
-         {{ name }}!
+    <div class="well container">
+        {% block userpanel %}
+            {{ parent() }}
+        {% endblock %}
+        {# select options #}
+            <form class="well form-horizontal login-form text-center" action="{{ path('oplol') }}" {{ form_enctype(form) }} method="POST">
+            {{ form(form) }}
+                    <div class="control-group go-in-center" >
+                        <input class="btn" type="submit" value="{{ 'Do it'|trans }}" />
+                    </div>
+                </form>
     </div>
 {% endblock %}
