@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use P5indicatori\UserBundle\Form\Type\TrackingType;
 use P5indicatori\UserBundle\Form\Type\TrackingSourcesType;
 use P5indicatori\UserBundle\Document\User;
+use P5indicatori\UserBundle\P5TrackingIndicators\TrackingTypes\Jira\Jira4;
 
 class DefaultController extends Controller
 {
