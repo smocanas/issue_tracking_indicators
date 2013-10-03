@@ -11,7 +11,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class TrackingVersionsType extends AbstractType{
+class TrackingType extends AbstractType{
     private $container;
     
     public function __construct(ContainerInterface $container) {

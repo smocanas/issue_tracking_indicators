@@ -1,3 +1,7 @@
 p5indicatori_user_homepage:
     pattern:  /
     defaults: { _controller: P5indicatoriUserBundle:Default:index }
+    
+p5indicatori_get_user_trakings_sources:
+    pattern:  /sources
+    defaults: { _controller: P5indicatoriUserBundle:Default:selectedTrackingType }

@@ -127,10 +127,11 @@ bc_bootstrap:
 
 # Disponible versions of jira/redmine
 parameters:
-  versions.jira_redmine:
+  versions.jira:
     - Jira 6
     - Jira 5
     - Jira 4.4
+  versions.redmine:
     - Redmine > 1.4
     - Redmine 1.3
   

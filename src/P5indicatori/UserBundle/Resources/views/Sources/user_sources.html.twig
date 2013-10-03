@@ -1,11 +1,13 @@
+{# empty Twig template #}
 {% extends '::base.html.twig' %}
+{% block title %}{{ page_title }}{% endblock %}        
 
     {% block stylesheets %}
         {{ parent() }}
         <link rel="stylesheet" href="{{ asset('costumCss/p5_indicatori.css') }}">
         <link rel="stylesheet" href="{{ asset('costumCss/costumCssFosUserBundle/fosUserBundle.css') }}">
     {% endblock %}
-        
+
 {% block body %}
     <div class="well container">
         {% block userpanel %}
@@ -15,7 +17,7 @@
             <form class="form-horizontal login-form text-center" action="{{ path('p5indicatori_get_user_trakings_sources') }}" {{ form_enctype(form) }} method="POST">
             {{ form_widget(form) }}
                     <div class="control-group go-in-center" >
-                        <input class="btn" type="submit" name="submit" value="{{ 'Select'|trans }}" />
+                        <input class="btn" type="submit" name="submit" value="{{ 'Add source'|trans }}" />
                     </div>
                 </form>
     </div>
