@@ -19,17 +19,21 @@ class TrackingVersionsType extends AbstractType{
     }
     
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('tracking_versions', 'choice', array(
-            'choices' => $this->container->getParameter('versions.jira_redmine'),
-            'required' => false,
-            'expanded' => false,
-            'multiple' => false,
-            'empty_value' => 'Choose an tracking version',
+        $choices = $this->container->getParameter('tracking_types');
+        $choices = array_combine($choices, $choices);
+        
+        $builder->add('tracking_types', 'choice', array(
+            'choices' => $choices,
+            'empty_value' => 'Choose tracking type',
+            'attr' => array(
+                'class' => 'control-group'
+            ),
+            'label' => ' '
         ));
     }
     
     public function getName() {
-        return 'tracking_versions_form';
+        return 'tracking_types_form';
     }
 }
 ?>

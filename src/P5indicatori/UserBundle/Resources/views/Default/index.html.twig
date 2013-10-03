@@ -12,10 +12,10 @@
             {{ parent() }}
         {% endblock %}
         {# select options #}
-            <form class="well form-horizontal login-form text-center" action="{{ path('oplol') }}" {{ form_enctype(form) }} method="POST">
-            {{ form(form) }}
+            <form class="form-horizontal login-form text-center" action="/" {{ form_enctype(form) }} method="POST">
+            {{ form_widget(form) }}
                     <div class="control-group go-in-center" >
-                        <input class="btn" type="submit" value="{{ 'Do it'|trans }}" />
+                        <input class="btn" type="submit" name="submit" value="{{ 'Select'|trans }}" />
                     </div>
                 </form>
     </div>

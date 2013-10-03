@@ -10,6 +10,7 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
+        $c = $this->getRequest()->request->all();
         $formVersionsTracking = $this->createForm(new TrackingVersionsType($this->container));
         
         return $this->render('P5indicatoriUserBundle:Default:index.html.twig', 
