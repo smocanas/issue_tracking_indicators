@@ -6,15 +6,16 @@
  */
 namespace P5indicatori\UserBundle\P5TrackingIndicators\Configs;
 
-use P5indicatori\UserBundle\P5TrackingIndicators\P5TrackingIndicators as P5Indicators;
+
 /**
  *
  * @author mtamazlicaru
  */
-class P5BaseConfigs extends P5Indicators{
+abstract class P5BaseConfigsAbstract { 
     protected $sourceUrl;
     protected $sourceName;
     protected $trackingType;
+    protected $container;
 
 
     public function setSourceUrl($sourceUrl){
@@ -29,7 +30,17 @@ class P5BaseConfigs extends P5Indicators{
         $this->trackingType = $trackingType;
     }
     
+    public function setContainer($container){
+        $this->container = $container;
+    }
     
+    abstract public function getUserProjects();
+    
+    abstract public function getProjectVersions($pkey);
+    
+    abstract public function getProjectUsers($pkey);
+    
+    abstract public function cacheData();
 }
 
 ?>

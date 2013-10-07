@@ -81,6 +81,13 @@ class TrackingSourcesType extends AbstractType{
                     break;
                 };
         }
+        $builder->add('selectedSourceType', 'hidden', array(
+            'data' => $selectedSourceType,
+        ));
+        
+        $builder->add('currentUser', 'hidden', array(
+            'data' => $this->container->get('security.context')->getToken()->getUser(),
+        ));
     }
     
     public function getName() {
