@@ -47,7 +47,7 @@ class TrackingSourcesType extends AbstractType{
             )
         ));
         // url
-        $builder->add('url_name', 'text', array(
+        $builder->add('url_link', 'text', array(
             'attr' => array(
                 'class' => 'control-group'
             ),
@@ -56,7 +56,7 @@ class TrackingSourcesType extends AbstractType{
         //selectet source
         switch ($selectedSourceType) {
             case 'redmine': {
-                    $builder->add('user_key', 'text', array(
+                    $builder->add('redmine_user_key', 'text', array(
                         'attr' => array(
                             'class' => 'control-group'
                           ),
@@ -66,13 +66,13 @@ class TrackingSourcesType extends AbstractType{
                     break;
                 };
             case 'jira': {
-                    $builder->add('login', 'text', array(
+                    $builder->add('jira_login', 'text', array(
                         'attr' => array(
                             'class' => 'control-group'
                         ),
                         'label' => 'Jira Login'
                     ));
-                    $builder->add('psw', 'password', array(
+                    $builder->add('jira_password', 'password', array(
                         'attr' => array(
                             'class' => 'control-group'
                             ),
@@ -81,11 +81,11 @@ class TrackingSourcesType extends AbstractType{
                     break;
                 };
         }
-        $builder->add('selectedSourceType', 'hidden', array(
+        $builder->add('tracking_types', 'hidden', array(
             'data' => $selectedSourceType,
         ));
         
-        $builder->add('currentUser', 'hidden', array(
+        $builder->add('ownerSource', 'hidden', array(
             'data' => $this->container->get('security.context')->getToken()->getUser(),
         ));
     }
@@ -100,8 +100,9 @@ class TrackingSourcesType extends AbstractType{
      */
     public function checkSourceType(){
         $postedElements = $this->postedElements;
+        $formName = key($postedElements);
         
-        $selectedSourceType = strtolower($postedElements['tracking_types_form']['tracking_types']);
+        $selectedSourceType = strtolower($postedElements[$formName]['tracking_types']);
         $choices = array();
         if(isset($selectedSourceType) && !empty($selectedSourceType)){
             $choices = $this->container->getParameter('versions.'.$selectedSourceType);

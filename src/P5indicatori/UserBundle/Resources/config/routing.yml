@@ -3,5 +3,9 @@ p5indicatori_user_homepage:
     defaults: { _controller: P5indicatoriUserBundle:Default:index }
     
 p5indicatori_get_user_trakings_sources:
-    pattern:  /sources
-    defaults: { _controller: P5indicatoriUserBundle:Default:selectedTrackingType }
+    pattern:  /sources/{tracking_type}
+    defaults: { _controller: P5indicatoriUserBundle:Default:selectedTrackingType, tracking_type: null }
+
+p5indicatori_save_user_trakings_sources:
+    pattern:  /add-user-source
+    defaults: { _controller: P5indicatoriUserBundle:Default:addUserSource }
