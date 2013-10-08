@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new P5indicatori\UserBundle\P5indicatoriUserBundle(),
             new Bc\Bundle\BootstrapBundle\BcBootstrapBundle(),
             new Sensio\Bundle\BuzzBundle\SensioBuzzBundle(),
+            new Bmatzner\JQueryUIBundle\BmatznerJQueryUIBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

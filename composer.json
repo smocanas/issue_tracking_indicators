@@ -21,7 +21,7 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "2.3.*",
+        "symfony/symfony": "2.3.4",
         "doctrine/orm": ">=2.2.3,<2.4-dev",
         "doctrine/doctrine-bundle": "1.2.*",
         "twig/extensions": "1.0.*",
@@ -41,7 +41,8 @@
         "kriswallsmith/assetic": "1.2.*@dev",
         "symfony/assetic-bundle": "2.4.*@dev",
         "leafo/lessphp": "0.4.*@dev",
-        "sensio/buzz-bundle":"dev-master"
+        "sensio/buzz-bundle":"dev-master",
+        "bmatzner/jquery-ui-bundle": "*"
     },
     "scripts": {
         "post-install-cmd": [

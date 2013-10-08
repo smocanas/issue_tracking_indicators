@@ -3,8 +3,100 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "1e452d0f15bdc72e8cccabde0e8e423b",
+    "hash": "091dcf9d72495e3bd857cd0d385bc59d",
     "packages": [
+        {
+            "name": "bmatzner/jquery-bundle",
+            "version": "1.10.1",
+            "target-dir": "Bmatzner/JQueryBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bmatzner/BmatznerJQueryBundle.git",
+                "reference": "2c4e861944e8ac1f801f5993e25dd6d789159f53"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bmatzner/BmatznerJQueryBundle/zipball/2c4e861944e8ac1f801f5993e25dd6d789159f53",
+                "reference": "2c4e861944e8ac1f801f5993e25dd6d789159f53",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": ">=2.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Bmatzner\\JQueryBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "GPLv2"
+            ],
+            "authors": [
+                {
+                    "name": "Bernd Matzner",
+                    "email": "bernd@matznermatzner.de",
+                    "homepage": "http://berndmatzner.de"
+                }
+            ],
+            "description": "jQuery Bundle for Symfony2",
+            "homepage": "http://jquery.com/",
+            "keywords": [
+                "javascript",
+                "jquery",
+                "symfony"
+            ],
+            "time": "2013-06-19 14:27:34"
+        },
+        {
+            "name": "bmatzner/jquery-ui-bundle",
+            "version": "1.10.3",
+            "target-dir": "Bmatzner/JQueryUIBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bmatzner/BmatznerJQueryUIBundle.git",
+                "reference": "43d66b83d0b1a8e080134a6f73fab380ee20d978"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bmatzner/BmatznerJQueryUIBundle/zipball/43d66b83d0b1a8e080134a6f73fab380ee20d978",
+                "reference": "43d66b83d0b1a8e080134a6f73fab380ee20d978",
+                "shasum": ""
+            },
+            "require": {
+                "bmatzner/jquery-bundle": "*",
+                "symfony/framework-bundle": ">=2.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Bmatzner\\JQueryUIBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "GPLv2"
+            ],
+            "authors": [
+                {
+                    "name": "Bernd Matzner",
+                    "email": "bernd@matznermatzner.de",
+                    "homepage": "http://berndmatzner.de"
+                }
+            ],
+            "description": "jQuery UI Bundle for Symfony2",
+            "homepage": "http://jqueryui.com/",
+            "keywords": [
+                "javascript",
+                "jquery",
+                "symfony",
+                "ui"
+            ],
+            "time": "2013-05-19 14:33:38"
+        },
         {
             "name": "braincrafted/bootstrap-bundle",
             "version": "dev-master",
@@ -658,12 +750,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/mongodb-odm.git",
-                "reference": "3515b2cfb4779a804fbabef2dd3f0a1c12baa994"
+                "reference": "926c0eb6c98a409e6bd52ca4acf2fd75f2fcb3de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/mongodb-odm/zipball/3515b2cfb4779a804fbabef2dd3f0a1c12baa994",
-                "reference": "3515b2cfb4779a804fbabef2dd3f0a1c12baa994",
+                "url": "https://api.github.com/repos/doctrine/mongodb-odm/zipball/926c0eb6c98a409e6bd52ca4acf2fd75f2fcb3de",
+                "reference": "926c0eb6c98a409e6bd52ca4acf2fd75f2fcb3de",
                 "shasum": ""
             },
             "require": {
@@ -724,7 +816,7 @@
                 "odm",
                 "persistence"
             ],
-            "time": "2013-08-30 17:25:05"
+            "time": "2013-09-30 15:22:44"
         },
         {
             "name": "doctrine/mongodb-odm-bundle",
@@ -873,12 +965,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "b4840d8b3293386dba685d91169559eb20f2d767"
+                "reference": "5e236332c3934fbc16b79eff3cf6ee9ee21b7519"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/b4840d8b3293386dba685d91169559eb20f2d767",
-                "reference": "b4840d8b3293386dba685d91169559eb20f2d767",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/5e236332c3934fbc16b79eff3cf6ee9ee21b7519",
+                "reference": "5e236332c3934fbc16b79eff3cf6ee9ee21b7519",
                 "shasum": ""
             },
             "require": {
@@ -933,7 +1025,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-09-23 12:09:51"
+            "time": "2013-10-02 23:38:05"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1052,12 +1144,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kriswallsmith/assetic.git",
-                "reference": "439f9f1b3fe2af31eac3457230caa4ecd5c14962"
+                "reference": "0cee699eca14f7c23d0667fa5f7e14d1a8b3af87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/439f9f1b3fe2af31eac3457230caa4ecd5c14962",
-                "reference": "439f9f1b3fe2af31eac3457230caa4ecd5c14962",
+                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/0cee699eca14f7c23d0667fa5f7e14d1a8b3af87",
+                "reference": "0cee699eca14f7c23d0667fa5f7e14d1a8b3af87",
                 "shasum": ""
             },
             "require": {
@@ -1115,7 +1207,7 @@
                 "compression",
                 "minification"
             ],
-            "time": "2013-09-25 17:12:24"
+            "time": "2013-10-05 09:46:50"
         },
         {
             "name": "kriswallsmith/buzz",
@@ -1171,12 +1263,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/leafo/lessphp.git",
-                "reference": "6e8e724fc7edcedc83a52cd18acc5b72f7dd3c40"
+                "reference": "c6cd043c94ba2a94ae3eeedc7a4c925302b61252"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leafo/lessphp/zipball/6e8e724fc7edcedc83a52cd18acc5b72f7dd3c40",
-                "reference": "6e8e724fc7edcedc83a52cd18acc5b72f7dd3c40",
+                "url": "https://api.github.com/repos/leafo/lessphp/zipball/c6cd043c94ba2a94ae3eeedc7a4c925302b61252",
+                "reference": "c6cd043c94ba2a94ae3eeedc7a4c925302b61252",
                 "shasum": ""
             },
             "type": "library",
@@ -1204,7 +1296,7 @@
             ],
             "description": "lessphp is a compiler for LESS written in PHP.",
             "homepage": "http://leafo.net/lessphp/",
-            "time": "2013-09-27 06:40:48"
+            "time": "2013-10-04 15:40:57"
         },
         {
             "name": "monolog/monolog",
@@ -1771,16 +1863,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.3.5",
+            "version": "v2.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "aa5626cd2a359567c948ebdeeca68d948640302f"
+                "reference": "4fb225f4e315c11aa6d8935b1c0ceaf48ba39f1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/aa5626cd2a359567c948ebdeeca68d948640302f",
-                "reference": "aa5626cd2a359567c948ebdeeca68d948640302f",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/4fb225f4e315c11aa6d8935b1c0ceaf48ba39f1f",
+                "reference": "4fb225f4e315c11aa6d8935b1c0ceaf48ba39f1f",
                 "shasum": ""
             },
             "require": {
@@ -1875,7 +1967,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-09-27 07:31:40"
+            "time": "2013-08-27 08:58:24"
         },
         {
             "name": "twig/extensions",
@@ -1926,16 +2018,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.13.2",
+            "version": "v1.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "6d6a1009427d1f398c9d40904147bf9f723d5755"
+                "reference": "224fc55635d544a2ec8edb3592be18db5a093f59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/6d6a1009427d1f398c9d40904147bf9f723d5755",
-                "reference": "6d6a1009427d1f398c9d40904147bf9f723d5755",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/224fc55635d544a2ec8edb3592be18db5a093f59",
+                "reference": "224fc55635d544a2ec8edb3592be18db5a093f59",
                 "shasum": ""
             },
             "require": {
@@ -1944,7 +2036,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.13-dev"
+                    "dev-master": "1.14-dev"
                 }
             },
             "autoload": {
@@ -1971,7 +2063,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-08-03 15:35:31"
+            "time": "2013-10-03 06:41:20"
         },
         {
             "name": "twitter/bootstrap",

@@ -14,7 +14,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  * @author mtamazlicaru
  */
 /**
- * @MongoDB\Document
+ * @MongoDB\Document(repositoryClass="P5indicatori\UserBundle\Repository\ProjectRepository")
  */
 class Project {
 
