@@ -16,7 +16,10 @@ abstract class P5BaseConfigsAbstract {
     protected $sourceName;
     protected $trackingType;
     protected $container;
-
+    
+    public function __construct($container = null) {
+        $this->setContainer($container);
+    }
 
     public function setSourceUrl($sourceUrl){
         $this->sourceUrl = $sourceUrl;
@@ -34,6 +37,10 @@ abstract class P5BaseConfigsAbstract {
         $this->container = $container;
     }
     
+    abstract public function connect($redmineKey = null, $jiraLogin = null, $jiraPassword = null);
+    
+    abstract public function extractDatesLogic($sourceId);
+    
     abstract public function getUserProjects();
     
     abstract public function getProjectVersions($pkey);
@@ -41,6 +48,8 @@ abstract class P5BaseConfigsAbstract {
     abstract public function getProjectUsers($pkey);
     
     abstract public function cacheData();
+    
+    abstract public function saveData($data = array(),$sourceId);
 }
 
-?>
+

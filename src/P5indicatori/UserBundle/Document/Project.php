@@ -62,6 +62,12 @@ class Project {
      * @MongoDB\String
      */
     protected $ownerSource;
+   
+    /**
+     * @MongoDB\EmbedMany(targetDocument="P5indicatori\UserBundle\Document\ProjectName") 
+     * 
+     */
+    protected $project_name = array();
     
 
     /**
@@ -248,5 +254,39 @@ class Project {
     public function getTrackingTypes()
     {
         return $this->tracking_types;
+    }
+    public function __construct()
+    {
+        $this->project_name = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add projectName
+     *
+     * @param P5indicatori\UserBundle\Document\ProjectName $projectName
+     */
+    public function addProjectName(\P5indicatori\UserBundle\Document\ProjectName $projectName)
+    {
+        $this->project_name[] = $projectName;
+    }
+
+    /**
+     * Remove projectName
+     *
+     * @param P5indicatori\UserBundle\Document\ProjectName $projectName
+     */
+    public function removeProjectName(\P5indicatori\UserBundle\Document\ProjectName $projectName)
+    {
+        $this->project_name->removeElement($projectName);
+    }
+
+    /**
+     * Get projectName
+     *
+     * @return Doctrine\Common\Collections\Collection $projectName
+     */
+    public function getProjectName()
+    {
+        return $this->project_name;
     }
 }

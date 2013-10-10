@@ -14,7 +14,7 @@ use P5indicatori\UserBundle\P5TrackingIndicators\Configs\P5BaseConfigsAbstract;
 class Redmine extends P5BaseConfigsAbstract{
       protected $redmineKey;
     
-      public function setRedmineUserKey($redmineKey){
+      protected function setRedmineUserKey($redmineKey){
           $this->redmineKey = $redmineKey;
       }
 
@@ -33,6 +33,18 @@ class Redmine extends P5BaseConfigsAbstract{
     public function getProjectUsers($pkey) {
         
     }
+    
+    public function connect($redmineKey = null, $jiraLogin = null, $jiraPassword = null) {
+        $this->setRedmineUserKey($redmineKey);
+    }
+
+    public function extractDatesLogic($sourceId) {
+        
+    }
+
+    public function saveData($data = array(),$sourceId) {
+        
+    }
 }
 
-?>
+

@@ -8,8 +8,6 @@ use P5indicatori\UserBundle\Form\Type\TrackingSourcesType;
 use P5indicatori\UserBundle\Document\User;
 use P5indicatori\UserBundle\Document\Project;
 
-use P5indicatori\UserBundle\P5TrackingIndicators\Configs\P5BaseConfigsAbstract;
-use P5indicatori\UserBundle\P5TrackingIndicators\TrackingTypes\Jira\Jira4;
 
 class DefaultController extends Controller
 {

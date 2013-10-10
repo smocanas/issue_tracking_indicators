@@ -30,7 +30,8 @@
                         <tbody>
                             <tr>
                                 <td> {{ loop.index }} </td>
-                                <td><a href="#">{{ userSource.getSourceName }}</a></td>
+                                <td><a href="{{ path('p5indicatori_add_forms_filter', {'id': userSource.getId }) }}">
+                                      {{ userSource.getSourceName }}</a></td>
                                 <td>{{ userSource.getTrackingSourcesTypes }}</td>
                                 <td>{{ userSource.getUrlLink }}</td>
                                 <td><a href="#">Edit</a></td>
