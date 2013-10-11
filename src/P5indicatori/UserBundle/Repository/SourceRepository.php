@@ -27,6 +27,19 @@ class SourceRepository extends DocumentRepository{
 
         return $result;
     }
+    
+    public function getProjectDetailsByName($id,$projectKey){
+        $queryBuilder = $this->createQueryBuilder();
+//        db.Source.find( { "_id":ObjectId("5257e10c3b27c914218b4567") }, { "project_name": { $elemMatch: { "key": "UP" } } } )
+        $result = $queryBuilder
+                ->select("project_name")
+                ->field('id')->equals($id)
+                ->field('project_name')->elemMatch($queryBuilder->expr()->field('key')->equals($projectKey))
+                ->getQuery()
+                ->execute();
+
+        return $result;
+    }
 }
 
 ?>

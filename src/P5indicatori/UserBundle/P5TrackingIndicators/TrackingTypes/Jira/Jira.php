@@ -11,7 +11,7 @@ use P5indicatori\UserBundle\P5TrackingIndicators\Configs\P5BaseConfigsAbstract;
 use P5indicatori\UserBundle\Document\Source;
 use P5indicatori\UserBundle\Document\ProjectName;
 use P5indicatori\UserBundle\Document\Actors;
-
+use Doctrine\ODM\MongoDB\LoggableCursor;
 /**
  *
  * @author mtamazlicaru
@@ -124,12 +124,17 @@ class Jira extends P5BaseConfigsAbstract {
         $sourceName = $dm->find('\\P5indicatori\UserBundle\Document\Source', $sourceId);
 
         foreach ($data as $pKey => $value) {
+//            $projectName[$pKey] = $dm->getRepository('\\P5indicatori\UserBundle\Document\Source')
+//                                     ->getProjectDetailsByName($sourceId,$value['userProject']['key']);
+//
+//            if (count($projectName[$pKey]) == 0) {
             $projectName[$pKey] = new ProjectName();
             //setting Project
             $projectName[$pKey]->setKey($value['userProject']['key']);
             $projectName[$pKey]->setName($value['userProject']['name']);
             $projectName[$pKey]->setRoles($value['userProject']['roles']);
             $projectName[$pKey]->setSelf($value['userProject']['self']);
+//            }
             //setting actors
             foreach ($value['projectUsers']['actors'] as $key => $actor) {
                 $actors[$key] = $dm->getRepository('\\P5indicatori\UserBundle\Document\Actors')->findOneBy(array('name' => $actor['name']));
