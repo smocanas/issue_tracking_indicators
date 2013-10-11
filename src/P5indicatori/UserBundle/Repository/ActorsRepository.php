@@ -12,8 +12,14 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
  *
  * @author mtamazlicaru
  */
-class ActorsRepository extends DocumentRepository{
-    //put your code here
+class ActorsRepository extends DocumentRepository {
+
+    public function getAllActorsNames() {
+        return $this->createQueryBuilder()
+                    ->field('name')->prime(true)
+                    ->getQuery()->execute();
+    }
+
 }
 
 ?>

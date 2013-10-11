@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use P5indicatori\UserBundle\Form\Type\TrackingType;
 use P5indicatori\UserBundle\Form\Type\TrackingSourcesType;
 use P5indicatori\UserBundle\Document\User;
-use P5indicatori\UserBundle\Document\Project;
+use P5indicatori\UserBundle\Document\Source;
 
 
 class DefaultController extends Controller
@@ -46,10 +46,10 @@ class DefaultController extends Controller
         //extracting from DB
         $userSources = $this->get('doctrine_mongodb')
                 ->getManager()
-                ->getRepository('P5indicatoriUserBundle:Project')
+                ->getRepository('P5indicatoriUserBundle:Source')
                 ->getUserSourcesByType($ownerSource->getUsername(),$trackingTypeGet);
-        $formSourcesTracking = $this->createForm(new TrackingSourcesType($this->container,$postedElements), new Project());
-        
+        $formSourcesTracking = $this->createForm(new TrackingSourcesType($this->container,$postedElements), new Source());
+
         $pageTitle = 'Sources, add source';
         return $this->render('P5indicatoriUserBundle:Sources:user_sources.html.twig', array(
                     'form' => $formSourcesTracking->createView(),
@@ -70,7 +70,7 @@ class DefaultController extends Controller
         }
         $dm = $this->get('doctrine_mongodb')->getManager();
        
-        $formSourcesTracking = $this->createForm(new TrackingSourcesType($this->container,$postedElements), new Project());
+        $formSourcesTracking = $this->createForm(new TrackingSourcesType($this->container,$postedElements), new Source());
        
         $formSourcesTracking->handleRequest($this->getRequest());
 

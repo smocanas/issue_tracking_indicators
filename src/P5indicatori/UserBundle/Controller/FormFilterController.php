@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use P5indicatori\UserBundle\Document\User;
-use P5indicatori\UserBundle\Document\Project;
+use P5indicatori\UserBundle\Document\Source;
 
 
 class FormFilterController extends Controller {
@@ -14,7 +14,7 @@ class FormFilterController extends Controller {
     public function addFormsAction($id) {
         if (!empty($id)) {
             $userSource = $this->get('doctrine_mongodb')
-                    ->getRepository('P5indicatoriUserBundle:Project')
+                    ->getRepository('P5indicatoriUserBundle:Source')
                     ->find($id);
             if(count($userSource) > 0){
                $className = $userSource->getTrackingSourcesTypes();

@@ -9,14 +9,14 @@ namespace P5indicatori\UserBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * Description of Project
+ * Description of Source
  *
  * @author mtamazlicaru
  */
 /**
- * @MongoDB\Document(repositoryClass="P5indicatori\UserBundle\Repository\ProjectRepository")
+ * @MongoDB\Document(repositoryClass="P5indicatori\UserBundle\Repository\SourceRepository")
  */
-class Project {
+class Source {
 
     /**
      * @MongoDB\Id(strategy="auto")
@@ -64,12 +64,16 @@ class Project {
     protected $ownerSource;
    
     /**
-     * @MongoDB\EmbedMany(targetDocument="P5indicatori\UserBundle\Document\ProjectName") 
+     * @MongoDB\EmbedMany(targetDocument="P5indicatori\UserBundle\Document\ProjectName")
      * 
      */
     protected $project_name = array();
     
-
+    public function __construct()
+    {
+        $this->project_name = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -213,6 +217,28 @@ class Project {
     }
 
     /**
+     * Set trackingTypes
+     *
+     * @param string $trackingTypes
+     * @return self
+     */
+    public function setTrackingTypes($trackingTypes)
+    {
+        $this->tracking_types = $trackingTypes;
+        return $this;
+    }
+
+    /**
+     * Get trackingTypes
+     *
+     * @return string $trackingTypes
+     */
+    public function getTrackingTypes()
+    {
+        return $this->tracking_types;
+    }
+
+    /**
      * Set ownerSource
      *
      * @param string $ownerSource
@@ -234,32 +260,6 @@ class Project {
         return $this->ownerSource;
     }
 
-    /**
-     * Set trackingTypes
-     *
-     * @param string $trackingTypes
-     * @return self
-     */
-    public function setTrackingTypes($trackingTypes)
-    {
-        $this->tracking_types = $trackingTypes;
-        return $this;
-    }
-
-    /**
-     * Get trackingTypes
-     *
-     * @return string $trackingTypes
-     */
-    public function getTrackingTypes()
-    {
-        return $this->tracking_types;
-    }
-    public function __construct()
-    {
-        $this->project_name = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
     /**
      * Add projectName
      *

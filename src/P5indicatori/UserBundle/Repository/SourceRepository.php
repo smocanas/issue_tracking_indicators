@@ -9,22 +9,23 @@ namespace P5indicatori\UserBundle\Repository;
 use Doctrine\ODM\MongoDB\DocumentRepository;
 
 /**
- * Description of ProjectRepository
+ * Description of SourceRepository
  *
  * @author mtamazlicaru
  */
-class ProjectRepository extends DocumentRepository{
+class SourceRepository extends DocumentRepository{
     
-    function getUserSourcesByType($username,$sourceType){
-       $queryBuilder = $this->createQueryBuilder();
+    public function getUserSourcesByType($username, $sourceType) {
+        $queryBuilder = $this->createQueryBuilder();
 
-       $result = $queryBuilder->addAnd($queryBuilder->expr()->field('ownerSource')->equals($username))
+        $result = $queryBuilder->addAnd($queryBuilder->expr()->field('ownerSource')->equals($username))
                 ->addAnd($queryBuilder->expr()->field('tracking_types')->equals($sourceType))
                 ->sort('source_name', 'ASC')
                 ->getQuery()
-                ->execute();
-       
-       return $result;
+                ->execute()
+                ->toArray();
+
+        return $result;
     }
 }
 

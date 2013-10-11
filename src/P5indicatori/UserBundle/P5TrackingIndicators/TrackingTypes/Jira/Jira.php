@@ -8,7 +8,7 @@
 namespace P5indicatori\UserBundle\P5TrackingIndicators\TrackingTypes\Jira;
 
 use P5indicatori\UserBundle\P5TrackingIndicators\Configs\P5BaseConfigsAbstract;
-use P5indicatori\UserBundle\Document\Project;
+use P5indicatori\UserBundle\Document\Source;
 use P5indicatori\UserBundle\Document\ProjectName;
 use P5indicatori\UserBundle\Document\Actors;
 
@@ -121,7 +121,7 @@ class Jira extends P5BaseConfigsAbstract {
 
     public function saveData($data = array(), $sourceId) {
         $dm = $this->container->get('doctrine.odm.mongodb.document_manager');
-        $project = $dm->find('\\P5indicatori\UserBundle\Document\Project', $sourceId);
+        $sourceName = $dm->find('\\P5indicatori\UserBundle\Document\Source', $sourceId);
 
         foreach ($data as $pKey => $value) {
             $projectName[$pKey] = new ProjectName();
@@ -132,24 +132,23 @@ class Jira extends P5BaseConfigsAbstract {
             $projectName[$pKey]->setSelf($value['userProject']['self']);
             //setting actors
             foreach ($value['projectUsers']['actors'] as $key => $actor) {
-                $actors[$key] = new Actors();
-                if (!empty($actor['id'])) {
-                    $actors[$key]->setActorId($actor['id']);
-                }
-                $actors[$key]->setDisplayName($actor['displayName']);
-                $actors[$key]->setName($actor['name']);
-                $actors[$key]->setType($actor['type']);
+                $actors[$key] = $dm->getRepository('\\P5indicatori\UserBundle\Document\Actors')->findOneBy(array('name' => $actor['name']));
+                if (empty($actors[$key])) {
+                    $actors[$key] = new Actors();
+                    if (!empty($actor['id'])) {
+                        $actors[$key]->setActorId($actor['id']);
+                    }
+                    $actors[$key]->setDisplayName($actor['displayName']);
+                    $actors[$key]->setName($actor['name']);
+                    $actors[$key]->setType($actor['type']);
                 
-                $actorObj = $dm->getRepository('\\P5indicatori\UserBundle\Document\Actors')->findOneBy(array('name' => $actor['name']));
-
-                if (empty($actorObj)) {
                     $dm->persist($actors[$key]);
-                    $dm->flush();
+                    $dm->flush($actors[$key]);
                 }
-                
+
                 $projectName[$pKey]->addActor($actors[$key]);
             }
-            $project->addProjectName($projectName[$pKey]);
+            $sourceName->addProjectName($projectName[$pKey]);
         } 
         $dm->flush();
     }
