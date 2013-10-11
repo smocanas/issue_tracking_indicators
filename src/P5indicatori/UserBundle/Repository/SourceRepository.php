@@ -19,8 +19,8 @@ class SourceRepository extends DocumentRepository{
         $queryBuilder = $this->createQueryBuilder();
 
         $result = $queryBuilder->addAnd($queryBuilder->expr()->field('ownerSource')->equals($username))
-                ->addAnd($queryBuilder->expr()->field('tracking_types')->equals($sourceType))
-                ->sort('source_name', 'ASC')
+                ->addAnd($queryBuilder->expr()->field('trackingTypes')->equals($sourceType))
+                ->sort('sourceName', 'ASC')
                 ->getQuery()
                 ->execute()
                 ->toArray();
@@ -32,9 +32,9 @@ class SourceRepository extends DocumentRepository{
         $queryBuilder = $this->createQueryBuilder();
 //        db.Source.find( { "_id":ObjectId("5257e10c3b27c914218b4567") }, { "project_name": { $elemMatch: { "key": "UP" } } } )
         $result = $queryBuilder
-                ->select("project_name")
+                ->select("projectName")
                 ->field('id')->equals($id)
-                ->field('project_name')->elemMatch($queryBuilder->expr()->field('key')->equals($projectKey))
+                ->field('projectName')->elemMatch($queryBuilder->expr()->field('key')->equals($projectKey))
                 ->getQuery()
                 ->execute();
 

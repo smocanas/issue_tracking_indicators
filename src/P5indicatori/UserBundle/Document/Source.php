@@ -26,37 +26,37 @@ class Source {
     /**
      * @MongoDB\String
      */
-    protected $source_name;
+    protected $sourceName;
 
     /**
      * @MongoDB\String
      */
-    protected $tracking_sources_types;
+    protected $trackingSourcesTypes;
 
     /**
      * @MongoDB\String
      */
-    protected $url_link;
+    protected $urlLink;
 
     /**
      * @MongoDB\String
      */
-    protected $redmine_user_key;
+    protected $redmineUserKey;
   
     /**
      * @MongoDB\String
      */
-    protected $jira_login;
+    protected $jiraLogin;
     
     /**
      * @MongoDB\String
      */
-    protected $jira_password;
+    protected $jiraPassword;
     
     /**
      * @MongoDB\String
      */
-    protected $tracking_types;
+    protected $trackingTypes;
     
     /**
      * @MongoDB\String
@@ -67,11 +67,11 @@ class Source {
      * @MongoDB\EmbedMany(targetDocument="P5indicatori\UserBundle\Document\ProjectName")
      * 
      */
-    protected $project_name = array();
-    
+    protected $projectName = array();
+
     public function __construct()
     {
-        $this->project_name = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->projectName = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -92,7 +92,7 @@ class Source {
      */
     public function setSourceName($sourceName)
     {
-        $this->source_name = $sourceName;
+        $this->sourceName = $sourceName;
         return $this;
     }
 
@@ -103,7 +103,7 @@ class Source {
      */
     public function getSourceName()
     {
-        return $this->source_name;
+        return $this->sourceName;
     }
 
     /**
@@ -114,7 +114,7 @@ class Source {
      */
     public function setTrackingSourcesTypes($trackingSourcesTypes)
     {
-        $this->tracking_sources_types = $trackingSourcesTypes;
+        $this->trackingSourcesTypes = $trackingSourcesTypes;
         return $this;
     }
 
@@ -125,7 +125,7 @@ class Source {
      */
     public function getTrackingSourcesTypes()
     {
-        return $this->tracking_sources_types;
+        return $this->trackingSourcesTypes;
     }
 
     /**
@@ -136,7 +136,7 @@ class Source {
      */
     public function setUrlLink($urlLink)
     {
-        $this->url_link = $urlLink;
+        $this->urlLink = $urlLink;
         return $this;
     }
 
@@ -147,7 +147,7 @@ class Source {
      */
     public function getUrlLink()
     {
-        return $this->url_link;
+        return $this->urlLink;
     }
 
     /**
@@ -158,7 +158,7 @@ class Source {
      */
     public function setRedmineUserKey($redmineUserKey)
     {
-        $this->redmine_user_key = $redmineUserKey;
+        $this->redmineUserKey = $redmineUserKey;
         return $this;
     }
 
@@ -169,7 +169,7 @@ class Source {
      */
     public function getRedmineUserKey()
     {
-        return $this->redmine_user_key;
+        return $this->redmineUserKey;
     }
 
     /**
@@ -180,7 +180,7 @@ class Source {
      */
     public function setJiraLogin($jiraLogin)
     {
-        $this->jira_login = $jiraLogin;
+        $this->jiraLogin = $jiraLogin;
         return $this;
     }
 
@@ -191,7 +191,7 @@ class Source {
      */
     public function getJiraLogin()
     {
-        return $this->jira_login;
+        return $this->jiraLogin;
     }
 
     /**
@@ -202,7 +202,7 @@ class Source {
      */
     public function setJiraPassword($jiraPassword)
     {
-        $this->jira_password = $jiraPassword;
+        $this->jiraPassword = $jiraPassword;
         return $this;
     }
 
@@ -213,7 +213,7 @@ class Source {
      */
     public function getJiraPassword()
     {
-        return $this->jira_password;
+        return $this->jiraPassword;
     }
 
     /**
@@ -224,7 +224,7 @@ class Source {
      */
     public function setTrackingTypes($trackingTypes)
     {
-        $this->tracking_types = $trackingTypes;
+        $this->trackingTypes = $trackingTypes;
         return $this;
     }
 
@@ -235,7 +235,7 @@ class Source {
      */
     public function getTrackingTypes()
     {
-        return $this->tracking_types;
+        return $this->trackingTypes;
     }
 
     /**
@@ -267,7 +267,7 @@ class Source {
      */
     public function addProjectName(\P5indicatori\UserBundle\Document\ProjectName $projectName)
     {
-        $this->project_name[] = $projectName;
+        $this->projectName[] = $projectName;
     }
 
     /**
@@ -277,7 +277,7 @@ class Source {
      */
     public function removeProjectName(\P5indicatori\UserBundle\Document\ProjectName $projectName)
     {
-        $this->project_name->removeElement($projectName);
+        $this->projectName->removeElement($projectName);
     }
 
     /**
@@ -287,6 +287,6 @@ class Source {
      */
     public function getProjectName()
     {
-        return $this->project_name;
+        return $this->projectName;
     }
 }

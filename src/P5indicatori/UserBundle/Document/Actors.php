@@ -30,7 +30,7 @@ class Actors {
     /**
      * @MongoDB\Int
      */
-    protected $actor_id;
+    protected $actorId;
 
     /**
      * @MongoDB\String
@@ -83,7 +83,7 @@ class Actors {
      */
     public function setActorId($actorId)
     {
-        $this->actor_id = $actorId;
+        $this->actorId = $actorId;
         return $this;
     }
 
@@ -94,7 +94,7 @@ class Actors {
      */
     public function getActorId()
     {
-        return $this->actor_id;
+        return $this->actorId;
     }
 
     /**

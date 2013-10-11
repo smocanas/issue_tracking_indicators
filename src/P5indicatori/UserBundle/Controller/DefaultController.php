@@ -37,11 +37,11 @@ class DefaultController extends Controller
         if(empty($postedElements) && empty($tracking_type)){
             return $this->redirect($this->generateUrl('p5indicatori_user_homepage'));
         }elseif(!empty($tracking_type) && empty($postedElements)){
-            $postedElements['tracking_sources_types_form']['tracking_types'] = $tracking_type;
+            $postedElements['tracking_sources_types_form']['trackingTypes'] = $tracking_type;
         }
         //getting the form name
         $formName = key($postedElements);
-        $trackingTypeGet = strtolower($postedElements[$formName]['tracking_types']);
+        $trackingTypeGet = strtolower($postedElements[$formName]['trackingTypes']);
         $ownerSource = $this->container->get('security.context')->getToken()->getUser();
         //extracting from DB
         $userSources = $this->get('doctrine_mongodb')
@@ -79,7 +79,7 @@ class DefaultController extends Controller
 
             $dm->persist($registration);
             $dm->flush();
-            $tracking_type = $postedElements['tracking_sources_types_form']['tracking_types'];
+            $tracking_type = $postedElements['tracking_sources_types_form']['trackingTypes'];
 
             return $this->redirect($this->generateUrl('p5indicatori_get_user_trakings_sources',
                     array(

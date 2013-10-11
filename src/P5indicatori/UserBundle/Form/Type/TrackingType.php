@@ -22,7 +22,7 @@ class TrackingType extends AbstractType{
         $choices = $this->container->getParameter('tracking_types');
         $choices = array_combine($choices, $choices);
         
-        $builder->add('tracking_types', 'choice', array(
+        $builder->add('trackingTypes', 'choice', array(
             'choices' => $choices,
             'empty_value' => 'Choose tracking type',
             'attr' => array(

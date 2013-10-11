@@ -32,14 +32,14 @@ class TrackingSourcesType extends AbstractType{
             $selectedSourceType = $choices['selectedSourceType'];
         }
         //Name field
-        $builder->add('source_name','text',array(
+        $builder->add('sourceName','text',array(
             'attr' => array(
               'class' => 'control-group'  
             ),
             'label'=> 'Name'
         ));
         //select
-        $builder->add('tracking_sources_types', 'choice', array(
+        $builder->add('trackingSourcesTypes', 'choice', array(
             'choices' => $choicesAssoc,
             'empty_value' => 'Choose tracking version',
             'attr' => array(
@@ -47,7 +47,7 @@ class TrackingSourcesType extends AbstractType{
             )
         ));
         // url
-        $builder->add('url_link', 'text', array(
+        $builder->add('urlLink', 'text', array(
             'attr' => array(
                 'class' => 'control-group'
             ),
@@ -56,7 +56,7 @@ class TrackingSourcesType extends AbstractType{
         //selectet source
         switch ($selectedSourceType) {
             case 'redmine': {
-                    $builder->add('redmine_user_key', 'text', array(
+                    $builder->add('redmineUserKey', 'text', array(
                         'attr' => array(
                             'class' => 'control-group'
                           ),
@@ -66,13 +66,13 @@ class TrackingSourcesType extends AbstractType{
                     break;
                 };
             case 'jira': {
-                    $builder->add('jira_login', 'text', array(
+                    $builder->add('jiraLogin', 'text', array(
                         'attr' => array(
                             'class' => 'control-group'
                         ),
                         'label' => 'Jira Login'
                     ));
-                    $builder->add('jira_password', 'password', array(
+                    $builder->add('jiraPassword', 'password', array(
                         'attr' => array(
                             'class' => 'control-group'
                             ),
@@ -81,7 +81,7 @@ class TrackingSourcesType extends AbstractType{
                     break;
                 };
         }
-        $builder->add('tracking_types', 'hidden', array(
+        $builder->add('trackingTypes', 'hidden', array(
             'data' => $selectedSourceType,
         ));
         
@@ -102,7 +102,7 @@ class TrackingSourcesType extends AbstractType{
         $postedElements = $this->postedElements;
         $formName = key($postedElements);
         
-        $selectedSourceType = strtolower($postedElements[$formName]['tracking_types']);
+        $selectedSourceType = strtolower($postedElements[$formName]['trackingTypes']);
         $choices = array();
         if(isset($selectedSourceType) && !empty($selectedSourceType)){
             $choices = $this->container->getParameter('versions.'.$selectedSourceType);
