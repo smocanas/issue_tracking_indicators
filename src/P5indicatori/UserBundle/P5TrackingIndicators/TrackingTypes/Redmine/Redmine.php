@@ -42,7 +42,11 @@ class Redmine extends P5BaseConfigsAbstract{
         
     }
 
-    public function saveData($data = array(),$sourceId) {
+    public function saveDataProjects($sourceId, $data = array()) {
+        
+    }
+
+    public function saveDataActors($projectName, $data = array(), $sourceId = null) {
         
     }
 }

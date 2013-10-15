@@ -115,11 +115,11 @@ class Jira extends P5BaseConfigsAbstract {
                     );                   
                 }
             }
-             $this->saveData($data, $sourceId);
+             $this->saveDataProjects($sourceId, $data);
         }
     }
 
-    public function saveData($data = array(), $sourceId) {
+    public function saveDataProjects($sourceId, $data = array()) {
         $dm = $this->container->get('doctrine.odm.mongodb.document_manager');
         $sourceName = $dm->find('\\P5indicatori\UserBundle\Document\Source', $sourceId);
 
@@ -136,26 +136,31 @@ class Jira extends P5BaseConfigsAbstract {
             $projectName[$pKey]->setSelf($value['userProject']['self']);
 //            }
             //setting actors
-            foreach ($value['projectUsers']['actors'] as $key => $actor) {
-                $actors[$key] = $dm->getRepository('\\P5indicatori\UserBundle\Document\Actors')->findOneBy(array('name' => $actor['name']));
-                if (empty($actors[$key])) {
-                    $actors[$key] = new Actors();
-                    if (!empty($actor['id'])) {
-                        $actors[$key]->setActorId($actor['id']);
-                    }
-                    $actors[$key]->setDisplayName($actor['displayName']);
-                    $actors[$key]->setName($actor['name']);
-                    $actors[$key]->setType($actor['type']);
-                
-                    $dm->persist($actors[$key]);
-                    $dm->flush($actors[$key]);
-                }
-
-                $projectName[$pKey]->addActor($actors[$key]);
-            }
+            $this->saveDataActors($projectName[$pKey], $value['projectUsers']['actors']);
             $sourceName->addProjectName($projectName[$pKey]);
         } 
         $dm->flush();
+    }
+
+    public function saveDataActors($projectName, $data = array(), $sourceId = null) {
+        $dm = $this->container->get('doctrine.odm.mongodb.document_manager');
+        foreach ($data as $key => $actor) {
+            $actors[$key] = $dm->getRepository('\\P5indicatori\UserBundle\Document\Actors')->findOneBy(array('name' => $actor['name']));
+            if (empty($actors[$key])) {
+                $actors[$key] = new Actors();
+                if (!empty($actor['id'])) {
+                    $actors[$key]->setActorId($actor['id']);
+                }
+                $actors[$key]->setDisplayName($actor['displayName']);
+                $actors[$key]->setName($actor['name']);
+                $actors[$key]->setType($actor['type']);
+
+                $dm->persist($actors[$key]);
+                $dm->flush($actors[$key]);
+            }
+
+            $projectName->addActor($actors[$key]);
+        }
     }
 
 }
