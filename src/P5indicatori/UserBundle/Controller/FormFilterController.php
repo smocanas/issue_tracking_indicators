@@ -31,7 +31,8 @@ class FormFilterController extends Controller {
                $trackerTypeObject = new $classNameWithNamespace($this->container);
                $trackerTypeObject->connect($redmineKey,$jiraLogin,$jiraPassword);
                $trackerTypeObject->setSourceUrl($sourceUrl);
-               $trackerTypeObject->extractDatesLogic($userSource->getId());
+               $data = $trackerTypeObject->extractDatesLogic($userSource->getId());
+
             }
         }
     }

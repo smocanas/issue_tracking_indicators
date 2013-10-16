@@ -36,7 +36,7 @@ class SourceRepository extends DocumentRepository{
                 ->field('id')->equals($id)
                 ->field('projectName')->elemMatch($queryBuilder->expr()->field('key')->equals($projectKey))
                 ->getQuery()
-                ->execute();
+                ->getSingleResult();
 
         return $result;
     }
