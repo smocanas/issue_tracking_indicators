@@ -3,6 +3,8 @@
 namespace P5indicatori\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use P5indicatori\UserBundle\Form\Type\BaseFilterFormType;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use P5indicatori\UserBundle\Document\User;
@@ -32,6 +34,20 @@ class FormFilterController extends Controller {
                $trackerTypeObject->connect($redmineKey,$jiraLogin,$jiraPassword);
                $trackerTypeObject->setSourceUrl($sourceUrl);
                $data = $trackerTypeObject->extractDatesLogic($userSource->getId());
+               if (!empty($data)) {
+                    $formConfig = array();
+                    $dm = $this->get('doctrine.odm.mongodb.document_manager');
+                    $sourceName = $dm->find('\\P5indicatori\UserBundle\Document\Source', $userSource->getId());
+//                    $baseFilterForm = $this->createForm(new BaseFilterFormType($this->container,$formConfig), $sourceName);
+                }
+                $pageTitle = 'Base Filter';
+                $form = '';
+                $trackerTypeObject->saveDataProjects($userSource->getId(),$data);
+                
+                return $this->render('P5indicatoriUserBundle:BaseFilter:baseFilter.html.twig', array(
+                            'form' => $form,
+                            'page_title' => $pageTitle,
+                ));
 
             }
         }

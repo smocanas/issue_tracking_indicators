@@ -44,7 +44,7 @@ class ProjectName {
     /** 
      * @MongoDB\ReferenceMany(targetDocument="P5indicatori\UserBundle\Document\Actors")
      */
-    protected $actors = array();
+    protected $actors;
     
     public function __construct()
     {
@@ -130,11 +130,11 @@ class ProjectName {
     /**
      * Add actor
      *
-     * @param P5indicatori\UserBundle\Document\Actors $actor
+     * @param $actor
      */
-    public function addActor(\P5indicatori\UserBundle\Document\Actors $actor)
+    public function addActor($actor)
     {
-        $this->actors[] = $actor;
+        $this->actors = $actor;
     }
 
     /**

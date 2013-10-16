@@ -67,7 +67,7 @@ class Source {
      * @MongoDB\EmbedMany(targetDocument="P5indicatori\UserBundle\Document\ProjectName")
      * 
      */
-    protected $projectName = array();
+    protected $projectName;
 
     public function __construct()
     {
@@ -263,11 +263,11 @@ class Source {
     /**
      * Add projectName
      *
-     * @param P5indicatori\UserBundle\Document\ProjectName $projectName
+     * @param  $projectName
      */
-    public function addProjectName(\P5indicatori\UserBundle\Document\ProjectName $projectName)
+    public function addProjectName($projectName)
     {
-        $this->projectName[] = $projectName;
+        $this->projectName = $projectName;
     }
 
     /**

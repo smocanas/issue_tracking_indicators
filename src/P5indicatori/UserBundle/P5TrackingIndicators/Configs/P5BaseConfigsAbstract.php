@@ -50,8 +50,7 @@ abstract class P5BaseConfigsAbstract {
     abstract public function cacheData();
     
     abstract public function saveDataProjects($sourceId, $data = array());
-    
-    abstract public function saveDataActors($projectName, $data = array(), $sourceId = null);
+ 
 }
 
 

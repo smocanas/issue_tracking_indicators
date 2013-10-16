@@ -108,65 +108,62 @@ class Jira extends P5BaseConfigsAbstract {
             foreach ($userProjects as $key => $project) {
                 $tmpProjectUsers = $this->getProjectUsers($project['key']);
                 if (!empty($tmpProjectUsers)) {
-                    $data['userProject'][] = $project;
-                    $data['projectUsers'][] = $tmpProjectUsers;
+                    $data['projectName'][] = $project;
+                    $data['actors'][] = $tmpProjectUsers;
                 }
             }
-//             $this->saveDataProjects($sourceId, $data);
         }
         return $data;
     }
 
     public function saveDataProjects($sourceId, $data = array()) {
-//        $dm = $this->container->get('doctrine.odm.mongodb.document_manager');
-//        $sourceName = $dm->find('\\P5indicatori\UserBundle\Document\Source', $sourceId);
-//
-//        foreach ($data as $pKey => $value) {
-//            $projectName[$pKey] = $dm->getRepository('\\P5indicatori\UserBundle\Document\Source')
-//                                     ->getProjectDetailsByName($sourceId,$value['userProject']['key']);
-//
-//            if (empty($projectName[$pKey])) {
-//                $projectName[$pKey] = new ProjectName();
-//                //setting Project
-////                die;
-//                $projectName[$pKey]->setKey($value['userProject']['key']);
-//                $projectName[$pKey]->setName($value['userProject']['name']);
-//                $projectName[$pKey]->setRoles($value['userProject']['roles']);
-//                $projectName[$pKey]->setSelf($value['userProject']['self']);
-//            } else {
-//                $projectName[$pKey] = $projectName[$pKey]->getProjectName()->getValues();
-//                $projectName[$pKey] = $projectName[$pKey][0];
-//                
-//            }
-//            //setting actors
-//            $this->saveDataActors($projectName[$pKey], $value['projectUsers']['actors']);
-//            $sourceName->addProjectName($projectName[$pKey]);
-//        } 
-//        $dm->flush();
+        $dm = $this->container->get('doctrine.odm.mongodb.document_manager');
+        $sourceName = $dm->find('\\P5indicatori\UserBundle\Document\Source', $sourceId);
+        $arrayOfCollections = $this->transformArrayToArrayOfObjects($data);
+        $sourceName->addProjectName($arrayOfCollections);
+        $dm->persist($sourceName);
+        $dm->flush();
     }
 
-    public function saveDataActors($projectName, $data = array(), $sourceId = null) {
-//        $dm = $this->container->get('doctrine.odm.mongodb.document_manager');
-//        foreach ($data as $key => $actor) {
-//            $isNewActor = false;
-//            $actors[$key] = $dm->getRepository('\\P5indicatori\UserBundle\Document\Actors')->findOneBy(array('name' => $actor['name']));
-//            if (empty($actors[$key])) {
-//                $actors[$key] = new Actors();
-//                $isNewActor = true;
-//            }
-//            if (!empty($actor['id'])) {
-//                $actors[$key]->setActorId($actor['id']);
-//            }
-//            $actors[$key]->setDisplayName($actor['displayName']);
-//            $actors[$key]->setName($actor['name']);
-//            $actors[$key]->setType($actor['type']);
-//
-//            $dm->persist($actors[$key]);
-//            $dm->flush($actors[$key]);
-//            if ($isNewActor) {
-//                $projectName->addActor($actors[$key]);
-//            }
-//        }
+    public function transformArrayToArrayOfObjects($data){
+        $projectArray = $data['projectName'];
+        $actorsArray = $data['actors'];
+        
+        $arrayCollection = new \Doctrine\Common\Collections\ArrayCollection();
+        
+        foreach ($projectArray as $key => $value) {
+            $project = new ProjectName();
+            $project->setKey($value['key']);
+            $project->setName($value['name']);
+            $project->setRoles($value['roles']);
+            $project->setSelf($value['self']);    
+            $project->addActor($this->saveActorsToProject($actorsArray[$key]['actors']));
+            $arrayCollection[] = $project;
+        }
+        
+        return $arrayCollection;
+    }
+    
+    public function saveActorsToProject($actors) {
+        $dm = $this->container->get('doctrine.odm.mongodb.document_manager');
+        $arrayCollection = new \Doctrine\Common\Collections\ArrayCollection();
+
+        foreach ($actors as $key => $value) {
+            $actor = $dm->getRepository('\\P5indicatori\UserBundle\Document\Actors')->findOneBy(array('name' => $value['name']));
+            if (empty($actor)) {
+                $actor = new Actors();
+            }
+            if (!empty($value['id'])) {
+                $actor->setActorId($value['id']);
+            }
+            $actor->setDisplayName($value['displayName']);
+            $actor->setName($value['name']);
+            $actor->setType($value['type']);
+            $dm->persist($actor);
+            $dm->flush($actor);
+            $arrayCollection[] = $actor;
+        }
+        return $arrayCollection;
     }
 
 }
