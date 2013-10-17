@@ -110,9 +110,10 @@ class Jira extends P5BaseConfigsAbstract {
             foreach ($userProjects as $key => $project) {
                 $tmpProjectUsers = $this->getProjectUsers($project['key']);
                 if (!empty($tmpProjectUsers)) {
+                    $projectFullRepresentation = $this->getProjectFullRepresentation($project['key']);
                     $data['projectName'][] = $project;
                     $data['actors'][] = $tmpProjectUsers;
-                    $data['components'][] = $this->getProjectComponents($project['key']);
+                    $data['components'][] = $projectFullRepresentation['components'];
                 }
             }
         }
@@ -185,6 +186,12 @@ class Jira extends P5BaseConfigsAbstract {
             $arrayCollection[] = $component;
         }
         return $arrayCollection;
+    }
+    
+    public function getProjectFullRepresentation($pkey) {
+        //
+        $this->urlTermination = 'project/'.$pkey;
+        return $this->getHttpResponseBasedOnUrl();
     }
 
 }
