@@ -23,6 +23,10 @@ class Jira extends P5BaseConfigsAbstract {
     protected $userKey;
     protected $urlTermination;
     private $baseVersionUrl = '/rest/api/2.0.alpha1/';
+    
+    //setting soap for taking Isues Types per project.
+    protected $soapToken;
+    protected $soapServiceUrl = '/rpc/soap/jirasoapservice-v2?wsdl';
 
     protected function setJiraUserLogin($jiraLogin) {
         $this->jiraLogin = $jiraLogin;
@@ -114,6 +118,7 @@ class Jira extends P5BaseConfigsAbstract {
                     $data['projectName'][] = $project;
                     $data['actors'][] = $tmpProjectUsers;
                     $data['components'][] = $projectFullRepresentation['components'];
+                    $data['issueTypes'][] = $this->getProjectIssueTypesViaSoap($project['key']);
                 }
             }
         }
@@ -133,6 +138,7 @@ class Jira extends P5BaseConfigsAbstract {
         $projectArray = $data['projectName'];
         $actorsArray = $data['actors'];
         $componentsArray = $data['components'];
+        $issueTypeArrayCollection = $data['issueTypes'];
         
         $arrayCollection = new \Doctrine\Common\Collections\ArrayCollection();
         
@@ -144,6 +150,7 @@ class Jira extends P5BaseConfigsAbstract {
             $project->setSelf($value['self']);    
             $project->addActor($this->saveActorsToProject($actorsArray[$key]['actors']));
             $project->addComponent($this->saveComponentToProject($componentsArray[$key]));
+            $project->addIssueType($this->saveIssueTypesToProject($issueTypeArrayCollection[$key]));
             $arrayCollection[] = $project;
         }
         
@@ -180,7 +187,9 @@ class Jira extends P5BaseConfigsAbstract {
             $component = new \P5indicatori\UserBundle\Document\Components();
             $component->setComponentId($value['id']);
             $component->setName($value['name']);
-            $component->setDescription($value['description']);
+            if (isset($value['description'])) {
+                $component->setDescription($value['description']);
+            }
             $component->setSelf($value['self']);
             $dm->persist($component);
             $arrayCollection[] = $component;
@@ -192,6 +201,63 @@ class Jira extends P5BaseConfigsAbstract {
         //
         $this->urlTermination = 'project/'.$pkey;
         return $this->getHttpResponseBasedOnUrl();
+    }
+    
+    /**
+     * Initializing a SOAP object and getting Issue Types per project (REST in jira 4.4 is not having this service).
+     * @param type $pkey
+     * @return array
+     */
+    public function getProjectIssueTypesViaSoap($pkey) {
+        try {
+            $soapClient = $this->connectViaSoap();
+            $projectDetailsByKey = $soapClient->getProjectByKey($this->soapToken, $pkey);
+            $issueTypesPerProject = $soapClient->getIssueTypesForProject($this->soapToken, $projectDetailsByKey->id);
+        } catch (\Exception $e) {
+            $this->soapToken = null;
+            throw new \Exception('Soap log in failed.');
+        }
+
+        return $issueTypesPerProject;
+    }
+    
+    public function saveIssueTypesToProject($issueTypes = array()) {
+        $dm = $this->container->get('doctrine.odm.mongodb.document_manager');
+
+        foreach ($issueTypes as $key => $valueObj) {
+            $issueType = new \P5indicatori\UserBundle\Document\IssueTypes();
+            $issueType->setIssueTypeId($valueObj->id);
+            $issueType->setName($valueObj->name);
+            $issueType->setDescription($valueObj->description);
+            $issueType->setIcon($valueObj->icon);
+            $issueType->setSubTask($valueObj->subTask);
+
+            $dm->persist($issueType);
+            $arrayCollection[] = $issueType;
+        }
+        return $arrayCollection;
+    }
+    
+    /**
+     * Connect with jira login and jira password to jira SOAP webservice.
+     * @param string $jiraLogin
+     * @param string $jiraPassword
+     * @return \SoapClient
+     */
+    public function connectViaSoap($jiraLogin = null, $jiraPassword = null) {
+        if (isset($jiraLogin) && isset($jiraPassword)) {
+            $this->jiraLogin = $jiraLogin;
+            $this->jiraPassword = $jiraPassword;
+        }
+        
+        $url = rtrim($this->sourceUrl, '/');
+        $soapClient = new \SoapClient($url . $this->soapServiceUrl);
+        if (!isset($this->soapToken)) {
+            $token = $soapClient->login($this->jiraLogin, $this->jiraPassword);
+            $this->soapToken = $token;
+        }
+        
+        return $soapClient;
     }
 
 }

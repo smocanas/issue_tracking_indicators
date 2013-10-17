@@ -52,6 +52,11 @@ class ProjectName {
      */
     protected $components;
 
+    /**
+     * @MongoDB\EmbedMany(targetDocument="P5indicatori\UserBundle\Document\IssueTypes")
+     * 
+     */
+    protected $issueTypes;
     
     public function __construct()
     {
@@ -215,5 +220,35 @@ class ProjectName {
     public function getComponents()
     {
         return $this->components;
+    }
+
+    /**
+     * Add issueType
+     *
+     * @param $issueType
+     */
+    public function addIssueType($issueType)
+    {
+        $this->issueTypes = $issueType;
+    }
+
+    /**
+     * Remove issueType
+     *
+     * @param P5indicatori\UserBundle\Document\Components $issueType
+     */
+    public function removeIssueType(\P5indicatori\UserBundle\Document\Components $issueType)
+    {
+        $this->issueTypes->removeElement($issueType);
+    }
+
+    /**
+     * Get issueTypes
+     *
+     * @return Doctrine\Common\Collections\Collection $issueTypes
+     */
+    public function getIssueTypes()
+    {
+        return $this->issueTypes;
     }
 }
