@@ -34,6 +34,7 @@ class FormFilterController extends Controller {
                $trackerTypeObject->connect($redmineKey,$jiraLogin,$jiraPassword);
                $trackerTypeObject->setSourceUrl($sourceUrl);
                $data = $trackerTypeObject->extractDatesLogic($userSource->getId());
+               
                if (!empty($data)) {
                     $formConfig = array();
                     $dm = $this->get('doctrine.odm.mongodb.document_manager');
@@ -43,7 +44,7 @@ class FormFilterController extends Controller {
                 $pageTitle = 'Base Filter';
                 $form = '';
                 $trackerTypeObject->saveDataProjects($userSource->getId(),$data);
-                
+                print "OK controller.";die;
                 return $this->render('P5indicatoriUserBundle:BaseFilter:baseFilter.html.twig', array(
                             'form' => $form,
                             'page_title' => $pageTitle,

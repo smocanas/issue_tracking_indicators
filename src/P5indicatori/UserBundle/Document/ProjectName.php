@@ -46,9 +46,17 @@ class ProjectName {
      */
     protected $actors;
     
+    /**
+     * @MongoDB\EmbedMany(targetDocument="P5indicatori\UserBundle\Document\Components")
+     * 
+     */
+    protected $components;
+
+    
     public function __construct()
     {
         $this->actors = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->components = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -177,5 +185,35 @@ class ProjectName {
     public function getRoles()
     {
         return $this->roles;
+    }
+
+    /**
+     * Add component
+     *
+     * @param $component
+     */
+    public function addComponent($component)
+    {
+        $this->components = $component;
+    }
+
+    /**
+     * Remove component
+     *
+     * @param P5indicatori\UserBundle\Document\Components $component
+     */
+    public function removeComponent(\P5indicatori\UserBundle\Document\Components $component)
+    {
+        $this->components->removeElement($component);
+    }
+
+    /**
+     * Get components
+     *
+     * @return Doctrine\Common\Collections\Collection $components
+     */
+    public function getComponents()
+    {
+        return $this->components;
     }
 }

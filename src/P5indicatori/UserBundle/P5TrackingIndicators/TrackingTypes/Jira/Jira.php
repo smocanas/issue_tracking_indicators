@@ -17,7 +17,7 @@ use Doctrine\ODM\MongoDB\LoggableCursor;
  * @author mtamazlicaru
  */
 class Jira extends P5BaseConfigsAbstract {
-
+    //rest documentation Jira 4.4 https://developer.atlassian.com/static/rest/jira/4.4.1.html
     protected $jiraLogin;
     protected $jiraPassword;
     protected $userKey;
@@ -62,6 +62,8 @@ class Jira extends P5BaseConfigsAbstract {
 
     public function getProjectComponents($pkey) {
         //
+        $this->urlTermination = 'project/'.$pkey.'/components';
+        return $this->getHttpResponseBasedOnUrl();
     }
 
     public function cacheData() {
@@ -110,6 +112,7 @@ class Jira extends P5BaseConfigsAbstract {
                 if (!empty($tmpProjectUsers)) {
                     $data['projectName'][] = $project;
                     $data['actors'][] = $tmpProjectUsers;
+                    $data['components'][] = $this->getProjectComponents($project['key']);
                 }
             }
         }
@@ -128,6 +131,7 @@ class Jira extends P5BaseConfigsAbstract {
     public function transformArrayToArrayOfObjects($data){
         $projectArray = $data['projectName'];
         $actorsArray = $data['actors'];
+        $componentsArray = $data['components'];
         
         $arrayCollection = new \Doctrine\Common\Collections\ArrayCollection();
         
@@ -138,6 +142,7 @@ class Jira extends P5BaseConfigsAbstract {
             $project->setRoles($value['roles']);
             $project->setSelf($value['self']);    
             $project->addActor($this->saveActorsToProject($actorsArray[$key]['actors']));
+            $project->addComponent($this->saveComponentToProject($componentsArray[$key]));
             $arrayCollection[] = $project;
         }
         
@@ -162,6 +167,22 @@ class Jira extends P5BaseConfigsAbstract {
             $dm->persist($actor);
             $dm->flush($actor);
             $arrayCollection[] = $actor;
+        }
+        return $arrayCollection;
+    }
+    
+    public function saveComponentToProject($component = array()){
+        $dm = $this->container->get('doctrine.odm.mongodb.document_manager');
+        $arrayCollection = new \Doctrine\Common\Collections\ArrayCollection();
+        
+        foreach ($component as $key => $value) {
+            $component = new \P5indicatori\UserBundle\Document\Components();
+            $component->setComponentId($value['id']);
+            $component->setName($value['name']);
+            $component->setDescription($value['description']);
+            $component->setSelf($value['self']);
+            $dm->persist($component);
+            $arrayCollection[] = $component;
         }
         return $arrayCollection;
     }

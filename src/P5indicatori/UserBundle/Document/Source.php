@@ -68,7 +68,7 @@ class Source {
      * 
      */
     protected $projectName;
-
+    
     public function __construct()
     {
         $this->projectName = new \Doctrine\Common\Collections\ArrayCollection();
