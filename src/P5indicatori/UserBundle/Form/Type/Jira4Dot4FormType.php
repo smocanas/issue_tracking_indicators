@@ -10,28 +10,26 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use P5indicatori\UserBundle\Document\ProjectName;
 /**
- * Description of BaseFilterFormType
+ * Description of Jira4Dot4FormType
  *
  * @author mtamazlicaru
  */
-class BaseFilterFormType extends AbstractType {
-    private $formConfig = array();
+class Jira4Dot4FormType extends AbstractType{
     private $container;
-    
-    public function __construct(ContainerInterface $container, $formConfig = array()) {
+
+    public function __construct(ContainerInterface $container) {
         $this->container = $container;
-        $this->formConfig = $formConfig;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
     }
-    
+
     public function getName() {
-        return 'base_filter_form';
-    }    
+        return 'jira4Dot4_filter_form';
+    }
+
 }
 
-?>
+

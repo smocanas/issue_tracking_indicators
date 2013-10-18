@@ -35,18 +35,19 @@ class FormFilterController extends Controller {
                $trackerTypeObject->setSourceUrl($sourceUrl);
                $data = $trackerTypeObject->extractDatesLogic($userSource->getId());
                
+               $formClassName = '\\P5indicatori\UserBundle\Form\Type\\'.$className.'FormType';
+               var_dump($formClassName); die;
                if (!empty($data)) {
-                    $formConfig = array();
                     $dm = $this->get('doctrine.odm.mongodb.document_manager');
                     $sourceName = $dm->find('\\P5indicatori\UserBundle\Document\Source', $userSource->getId());
-//                    $baseFilterForm = $this->createForm(new BaseFilterFormType($this->container,$formConfig), $sourceName);
+                    $baseFilterForm = $this->createForm(new $formClassName($this->container));
                 }
                 $pageTitle = 'Base Filter';
                 $form = '';
                 $trackerTypeObject->saveDataProjects($userSource->getId(),$data);
-                print "OK controller.";die;
+//                print "OK controller.";die;
                 return $this->render('P5indicatoriUserBundle:BaseFilter:baseFilter.html.twig', array(
-                            'form' => $form,
+                            'form' => $baseFilterForm->createView(),
                             'page_title' => $pageTitle,
                 ));
 
