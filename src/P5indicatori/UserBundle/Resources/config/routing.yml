@@ -5,6 +5,7 @@ p5indicatori_user_homepage:
 p5indicatori_get_user_trakings_sources:
     pattern:  /sources/{tracking_type}
     defaults: { _controller: P5indicatoriUserBundle:Default:selectedTrackingType, tracking_type: null }
+    methods:  [POST]
 
 p5indicatori_save_user_trakings_sources:
     pattern:  /add-user-source

@@ -12,6 +12,8 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        {# show loader #}
+        <div id="freezeLoader"></div>
         {% block body %}
             {# user panel informative #}
             {%block userpanel%}
@@ -29,6 +31,7 @@
             <script src="{{ asset('js/bootstrap.js') }}"></script>
             <script src="{{ asset('bundles/bmatznerjqueryui/js/minified/jquery-ui.min.js') }}"></script>
             <script src="{{ asset('costumJs/p5indicatori.js') }}"></script>
+            <script src="{{ asset('costumJs/ajaxP5indicatori.js') }}"></script>
         {% endblock %}
     </body>
 </html>

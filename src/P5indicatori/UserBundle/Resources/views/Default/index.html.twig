@@ -12,11 +12,14 @@
             {{ parent() }}
         {% endblock %}
         {# select options #}
-            <form class="form-horizontal login-form text-center" action="{{ path('p5indicatori_get_user_trakings_sources') }}" {{ form_enctype(form) }} method="POST">
-            {{ form_widget(form) }}
-                    <div class="control-group go-in-center" >
-                        <input class="btn" type="submit" name="submit" value="{{ 'Select'|trans }}" />
-                    </div>
-                </form>
+            <div class="text-center">
+                <button id="add_source_form" class="button btn-small btn-primary"> Add source </button>
+            </div>
+            <div id="source_form" class="source-form-off">
+                <form id="selectSourceType" class="form-horizontal login-form text-center" action="{{ path('p5indicatori_get_user_trakings_sources') }}" {{ form_enctype(form) }} method="POST">
+                 {{ form_widget(form) }}
+                    </form>
+                    <div id="formType"></div>
+                </div>
     </div>
 {% endblock %}
