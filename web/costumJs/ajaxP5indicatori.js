@@ -63,16 +63,11 @@
                 data: $(this).serialize(),
                 context: $(this),
                 beforeSend: function() {
-                    $("#dialogMessageProgressBar").dialog({
-                        modal: true,
-                        dialogClass: 'no-close',
-                        closeOnEscape: false
-                    });
+                    showLoader();
                 }
             });
 
             ajaxRequest.done(function(response) {
-                $('#dialogMessageProgressBar').dialog("destroy");
                 if (response.success) {
                     setSuccMessage("Source added succesfully.")
                     $("#mainFormDiv").html(response.formHtml);
