@@ -66,7 +66,8 @@ class DefaultController extends Controller
         $response = array();
         if (!empty($postedElements)) {
             $dm = $this->get('doctrine_mongodb')->getManager();
-            $formSourcesTracking = $this->createForm(new TrackingSourcesType($this->container, $postedElements), new Source());
+            $sourceSave = new Source();
+            $formSourcesTracking = $this->createForm(new TrackingSourcesType($this->container, $postedElements), $sourceSave);
             $formSourcesTracking->handleRequest($this->getRequest());
 
             if ($formSourcesTracking->isValid()) {
@@ -77,12 +78,16 @@ class DefaultController extends Controller
 
                 //form from home page.
                 $formTrackingTypes = $this->createForm(new TrackingType($this->container));
-                $response['success'] = true;
+                
+                $sourceId = $sourceSave->getId();
+                $dataSaved = $this->saveDataFromRestApi($sourceId);
+                //inline if statement
+                empty($dataSaved) ? $response['success'] = false : $response['success'] = true;
                 $returnHtml = $this->render('P5indicatoriUserBundle:Sources:homePageMainForm.html.twig', array(
                     'form' => $formTrackingTypes->createView(),
                 ));
                 $response['formHtml'] = $returnHtml->getContent();
-
+                
                 return new JsonResponse($response);
             }
         }
@@ -92,6 +97,33 @@ class DefaultController extends Controller
         ));
         $response['formHtml'] = $returnHtml->getContent();
         return new JsonResponse($response);
+    }
+    
+    public function saveDataFromRestApi($sourceId) {
+        $userSource = $this->get('doctrine_mongodb')
+                ->getRepository('P5indicatoriUserBundle:Source')
+                ->find($sourceId);
+        if (count($userSource) > 0) {
+            $className = $userSource->getTrackingSourcesTypes();
+            $className = str_replace(array(' ', '.'), array('', 'Dot'), $className);
+            $trackingType = ucfirst($userSource->getTrackingTypes());
+            $classNameWithNamespace = '\\P5indicatori\UserBundle\P5TrackingIndicators\TrackingTypes\\' . $trackingType . '\\' . $className;
+            //getting from database
+            $redmineKey = $userSource->getRedmineUserKey();
+            $jiraLogin = $userSource->getJiraLogin();
+            $jiraPassword = $userSource->getJiraPassword();
+            $sourceUrl = $userSource->getUrlLink();
+
+            //createing object dynamically 
+            $trackerTypeObject = new $classNameWithNamespace($this->container);
+            $trackerTypeObject->connect($redmineKey, $jiraLogin, $jiraPassword);
+            $trackerTypeObject->setSourceUrl($sourceUrl);
+            $data = $trackerTypeObject->extractDatesLogic($userSource->getId());
+            if (!empty($data)) {
+                $trackerTypeObject->saveDataProjects($userSource->getId(), $data);
+            }
+            return $data;
+        }
     }
    
 }
