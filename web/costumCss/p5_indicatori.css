@@ -34,3 +34,14 @@
     top: 0px;
     left: 0px;
 }
+
+.no-close .ui-dialog-titlebar-close {
+    display: none 
+}
+
+.load-speed{
+    background-image: url('../costumImages/loader_speed.gif');
+    width: 128px;
+    height: 80px;
+    margin: auto;
+}

@@ -1,6 +1,10 @@
-<form class="form-horizontal login-form text-center" action="{{ path('p5indicatori_save_user_trakings_sources') }}" {{ form_enctype(form) }} method="POST">
+<form id="addSourceForm" class="form-horizontal login-form text-center" action="{{ path('p5indicatori_save_user_trakings_sources') }}" {{ form_enctype(form) }} method="POST">
                             {{ form_widget(form) }}
         <div class="control-group go-in-center" >
             <input class="btn" type="submit" name="submit" value="{{ 'Add source'|trans }}" />
         </div>
+        <div id="dialogMessageProgressBar" class="source-form-off" title="Progress">
+            <div class="load-speed"></div>
+        </div>
     </form>
+

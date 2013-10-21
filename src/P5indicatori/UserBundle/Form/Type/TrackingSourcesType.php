@@ -101,7 +101,11 @@ class TrackingSourcesType extends AbstractType{
     public function checkSourceType(){
         $postedElements = $this->postedElements;
         
-        $selectedSourceType = $postedElements['sourceType'];
+        if (isset($postedElements['trackingTypes'])) {
+            $selectedSourceType = $postedElements['trackingTypes'];
+        }else{
+            $selectedSourceType = $postedElements[$this->getName()]['trackingTypes'];
+        }
         
         $choices = array();
         if(isset($selectedSourceType) && !empty($selectedSourceType)){

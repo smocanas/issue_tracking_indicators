@@ -8,14 +8,14 @@
      */
     $(document).on("change","#tracking_types_form_trackingTypes",function(){
        var optionSelected = $(this).find('option:selected');
-       var sourceType = optionSelected.val();
-       if(sourceType.length > 0){
-          sourceType = sourceType.toLowerCase()
+       var trackingTypes = optionSelected.val();
+       if(trackingTypes.length > 0){
+          trackingTypes = trackingTypes.toLowerCase()
           var formActionUrl = $("#selectSourceType").attr("action");
             var ajaxRequest = $.ajax({
-                url: formActionUrl + "/" + sourceType,
+                url: formActionUrl + "/" + trackingTypes,
                 type: "POST",
-                data: {sourceType: sourceType},
+                data: {trackingTypes: trackingTypes},
                 beforeSend: function(){
                     showLoader();
                 }
@@ -51,6 +51,55 @@
        $(document).ajaxStop(function(){
             hideLoader(); 
        });
+       
+       /**
+        * Add source via ajax
+        */
+       $(document).unbind("submit").on("submit","#addSourceForm", function(e){
+          var formActionUrl = $(this).attr('action');
+            var ajaxRequest = $.ajax({
+                url: formActionUrl,
+                type: "POST",
+                data: $(this).serialize(),
+                context: $(this),
+                beforeSend: function() {
+                    $("#dialogMessageProgressBar").dialog({
+                        modal: true,
+                        dialogClass: 'no-close',
+                        closeOnEscape: false
+                    });
+                }
+            });
+
+            ajaxRequest.done(function(response) {
+                $('#dialogMessageProgressBar').dialog("destroy");
+                if (response.success) {
+                    setSuccMessage("Source added succesfully.")
+                    $("#mainFormDiv").html(response.formHtml);
+                }else{
+                    setErrMessage("Source saving error, something went wrong.");
+                }
+            });
+
+            ajaxRequest.fail(function(jqXHR, textStatus) {
+                $('#dialogMessageProgressBar').dialog("destroy");
+                setErrMessage("Request failed: " + textStatus);
+            });
+            
+          return false; 
+       });
     });
+    
+    function setSuccMessage(succMsg) {
+        jQuery("#messageAlert")
+                .html('<div id="hide"  class="alert alert-success">' + succMsg + '</div>')
+                .show();
+        jQuery("#hide").delay(5000).fadeOut(300);
+    }
+    
+    function setErrMessage(errMsg) {
+        jQuery("#messageAlert")
+                .html('<div class="alert alert-error">' + errMsg + '</div>').show();
+    }
 })(jQuery);
 

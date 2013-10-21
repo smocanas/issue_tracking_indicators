@@ -7,6 +7,7 @@ use P5indicatori\UserBundle\Form\Type\TrackingType;
 use P5indicatori\UserBundle\Form\Type\TrackingSourcesType;
 use P5indicatori\UserBundle\Document\User;
 use P5indicatori\UserBundle\Document\Source;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 class DefaultController extends Controller
@@ -52,8 +53,7 @@ class DefaultController extends Controller
 
         $pageTitle = 'Sources, add source';
         return $this->render('P5indicatoriUserBundle:Sources:addUserSourceForm.html.twig', array(
-                    'form' => $formSourcesTracking->createView(),
-                    'page_title' => $pageTitle
+                    'form' => $formSourcesTracking->createView()
         ));
     }
     
@@ -61,34 +61,37 @@ class DefaultController extends Controller
      * Add tracking sources to user.
      * @return type
      */
-    public function addUserSourceAction(){
+    public function addUserSourceAction() {
         $postedElements = $this->getRequest()->request->all();
+        $response = array();
+        if (!empty($postedElements)) {
+            $dm = $this->get('doctrine_mongodb')->getManager();
+            $formSourcesTracking = $this->createForm(new TrackingSourcesType($this->container, $postedElements), new Source());
+            $formSourcesTracking->handleRequest($this->getRequest());
 
-        if (empty($postedElements)) {
-            return $this->redirect($this->generateUrl('p5indicatori_user_homepage'));
+            if ($formSourcesTracking->isValid()) {
+                $registration = $formSourcesTracking->getData();
+
+                $dm->persist($registration);
+                $dm->flush();
+
+                //form from home page.
+                $formTrackingTypes = $this->createForm(new TrackingType($this->container));
+                $response['success'] = true;
+                $returnHtml = $this->render('P5indicatoriUserBundle:Sources:homePageMainForm.html.twig', array(
+                    'form' => $formTrackingTypes->createView(),
+                ));
+                $response['formHtml'] = $returnHtml->getContent();
+
+                return new JsonResponse($response);
+            }
         }
-        $dm = $this->get('doctrine_mongodb')->getManager();
-       
-        $formSourcesTracking = $this->createForm(new TrackingSourcesType($this->container,$postedElements), new Source());
-       
-        $formSourcesTracking->handleRequest($this->getRequest());
-
-        if ($formSourcesTracking->isValid()) {
-            $registration = $formSourcesTracking->getData();
-
-            $dm->persist($registration);
-            $dm->flush();
-            $tracking_type = $postedElements['tracking_sources_types_form']['trackingTypes'];
-
-            return $this->redirect($this->generateUrl('p5indicatori_get_user_trakings_sources',
-                    array(
-                        'tracking_type' => $tracking_type)));
-        }
-
-        return $this->render('P5indicatoriUserBundle:Sources:user_sources.html.twig', array(
-                    'form' => $formSourcesTracking->createView(),
-                    'page_title' => 'Is not valid.'
+        $response['success'] = false;
+        $returnHtml = $this->render('P5indicatoriUserBundle:Sources:addUserSourceForm.html.twig', array(
+            'form' => $formSourcesTracking->createView(),
         ));
+        $response['formHtml'] = $returnHtml->getContent();
+        return new JsonResponse($response);
     }
    
 }
