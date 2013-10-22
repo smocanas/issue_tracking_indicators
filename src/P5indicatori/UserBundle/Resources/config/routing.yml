@@ -14,3 +14,7 @@ p5indicatori_save_user_trakings_sources:
 p5indicatori_add_forms_filter:
     pattern: /filter-form/{id}
     defaults: { _controller: P5indicatoriUserBundle:FormFilter:addForms, id:null }
+    
+p5indicatori_get_user_sources:
+    pattern: /my-sources
+    defaults: { _controller: P5indicatoriUserBundle:Default:userSources }

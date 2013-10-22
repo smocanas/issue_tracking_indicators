@@ -1,0 +1,32 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+        
+{% block contentBody %}
+<table class="table table-striped">
+    <caption>User Sources</caption>
+    <thead>
+        <tr>
+            <th><strong>#</strong></th>
+            <th><strong>Source Name</strong></th>
+            <th><strong>Source Type</strong></th>
+            <th><strong>Source Link</strong></th>
+            <th><strong>Reload</strong></th>
+            <th><strong>Edit</strong></th>
+            <th><strong>Delete</strong></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for userSource in userSources %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ userSource.sourceName }}</td>
+            <td>{{ userSource.trackingSourcesTypes }}</td>
+            <td><a href="{{ userSource.urlLink }}">{{ userSource.urlLink }}</a></td>         
+            <td><a herf="#">Reload</a></td>
+            <td><a herf="#">Edit</a></td>
+            <td><a herf="#">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}  

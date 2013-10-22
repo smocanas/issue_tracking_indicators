@@ -125,5 +125,17 @@ class DefaultController extends Controller
             return $data;
         }
     }
+    
+    public function userSourcesAction() {
+        $ownerSource = $this->container->get('security.context')->getToken()->getUser();
+        $userSources = $this->get('doctrine_mongodb')
+                ->getManager()
+                ->getRepository('P5indicatoriUserBundle:Source')
+                ->findByOwnerSource($ownerSource->getUsername());
+
+        return $this->render('P5indicatoriUserBundle:Sources:userSources.html.twig', array(
+                    'userSources' => $userSources,
+        ));
+    }
    
 }
