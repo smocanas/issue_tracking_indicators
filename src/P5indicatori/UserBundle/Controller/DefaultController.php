@@ -63,7 +63,11 @@ class DefaultController extends Controller
      */
     public function addUserSourceAction() {
         $postedElements = $this->getRequest()->request->all();
-        $response = array();
+        $response = array(
+            'exception' => null,
+            'success' => null,
+            'form' => null
+        );
         if (!empty($postedElements)) {
             $dm = $this->get('doctrine_mongodb')->getManager();
             $sourceSave = new Source();
@@ -78,16 +82,31 @@ class DefaultController extends Controller
 
                 //form from home page.
                 $formTrackingTypes = $this->createForm(new TrackingType($this->container));
-                
+
                 $sourceId = $sourceSave->getId();
                 $dataSaved = $this->saveDataFromRestApi($sourceId);
                 //inline if statement
-                empty($dataSaved) ? $response['success'] = false : $response['success'] = true;
+                if (empty($dataSaved)) {
+                    $response['success'] = false;
+                    $response['exception'] = "Authentication failed or wrong saved url source, please change source details.";
+                    //return form
+                    $returnHtml = $this->render('P5indicatoriUserBundle:Sources:addUserSourceForm.html.twig', array(
+                        'form' => $formSourcesTracking->createView(),
+                    ));
+                    $response['formHtml'] = $returnHtml->getContent();
+                    
+                    $dm->remove($registration);
+                    $dm->flush();
+                    return new JsonResponse($response);
+                } else {
+                    $response['success'] = true;
+                }
+
                 $returnHtml = $this->render('P5indicatoriUserBundle:Sources:homePageMainForm.html.twig', array(
                     'form' => $formTrackingTypes->createView(),
                 ));
                 $response['formHtml'] = $returnHtml->getContent();
-                
+
                 return new JsonResponse($response);
             }
         }
@@ -114,7 +133,7 @@ class DefaultController extends Controller
             $jiraPassword = $userSource->getJiraPassword();
             $sourceUrl = $userSource->getUrlLink();
 
-            //createing object dynamically 
+            //createing object dynamically
             $trackerTypeObject = new $classNameWithNamespace($this->container);
             $trackerTypeObject->connect($redmineKey, $jiraLogin, $jiraPassword);
             $trackerTypeObject->setSourceUrl($sourceUrl);

@@ -31,7 +31,7 @@ class MenuBuilder
     {
         $menu = $this->factory->createItem('root');
 
-        $item = $menu->addChild('Home', array('route' => 'p5indicatori_user_homepage'));
+        $item = $menu->addChild('Add source', array('route' => 'p5indicatori_user_homepage'));
 //        $item->setCurrent(true);
         $item = $menu->addChild('My sources', array('route' => 'p5indicatori_get_user_sources'));
         // ... add more children

@@ -109,7 +109,7 @@ class Jira extends P5BaseConfigsAbstract {
     public function extractDatesLogic($sourceId) {
         $userProjects = $this->getUserProjects();
         $projectUsers = array();
-
+        $data = array();
         if (count($userProjects) > 0) {
             foreach ($userProjects as $key => $project) {
                 $tmpProjectUsers = $this->getProjectUsers($project['key']);

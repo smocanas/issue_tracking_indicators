@@ -1,0 +1,6 @@
+## YAML Template.
+---
+P5indicatori\UserBundle\Document\Source:
+    properties:
+        urlLink:
+            - Url:

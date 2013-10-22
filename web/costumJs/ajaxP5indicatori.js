@@ -72,12 +72,16 @@
                     setSuccMessage("Source added succesfully.")
                     $("#mainFormDiv").html(response.formHtml);
                 }else{
-                    setErrMessage("Source saving error, something went wrong.");
+                    if (response.exception != null) {
+                        setErrMessage(response.exception);
+                    }else{
+                        $("#messageAlert").empty();
+                    }
+                    $("#mainFormDiv").html(response.formHtml);
                 }
             });
 
             ajaxRequest.fail(function(jqXHR, textStatus) {
-                $('#dialogMessageProgressBar').dialog("destroy");
                 setErrMessage("Request failed: " + textStatus);
             });
             
@@ -86,14 +90,14 @@
     });
     
     function setSuccMessage(succMsg) {
-        jQuery("#messageAlert")
+        $("#messageAlert")
                 .html('<div id="hide"  class="alert alert-success">' + succMsg + '</div>')
                 .show();
-        jQuery("#hide").delay(5000).fadeOut(300);
+        $("#hide").delay(5000).fadeOut(300);
     }
     
     function setErrMessage(errMsg) {
-        jQuery("#messageAlert")
+        $("#messageAlert")
                 .html('<div class="alert alert-error">' + errMsg + '</div>').show();
     }
 })(jQuery);
