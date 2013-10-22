@@ -15,17 +15,35 @@
         {# show loader #}
         <div id="freezeLoader"></div>
         {% block body %}
-            {# user panel informative #}
-            {%block userpanel%}
-            <div class="well user-panel text-center">
-                    <div class="pull-left"><span class="icon-user"></span> Hi <span class="text-info">
-                           {{ app.security.token.user.username }} </span>!</div> 
-                    <div class="project-title"><strong> Indicators P5 </strong></div>
-                    <div class="pull-right"><a href="/logout">Logout <span class="icon-off"></span></a></div>
+            <div class="container">
+                {# user panel informative #}
+                {%block userpanel%}
+                <div class="well user-panel text-center">
+                        <div class="pull-left"><span class="icon-user"></span> Hi <span class="text-info">
+                               {{ app.security.token.user.username }} </span>!</div> 
+                        <div class="project-title"><strong> Indicators P5 </strong></div>
+                        <div class="pull-right"><a href="/logout">Logout <span class="icon-off"></span></a></div>
+                </div>
+                {# Message alert div #}
+                <div id="messageAlert"></div>
+                {% endblock %}
+                    <div class="row-fluid">
+                        <div class="well span2">
+                                {%block sidebarContentLeft %}
+                                <div id="sidebarMenu" class="sidebar-nav">
+                                        <!--Sidebar content-->
+                                        {{ knp_menu_render('sidebar', {'nav_type': 'stacked_tabs'}) }}
+                                    </div>
+                                {% endblock %}
+                            </div>
+                            <div class="well span10">
+                            {%block contentBody %}
+                             <!--Body content-->
+
+                            {% endblock %}
+                                </div>
+                        </div>
             </div>
-            {# Message alert div #}
-            <div id="messageAlert"></div>
-            {% endblock %}
         {% endblock %}
         {% block javascripts %}
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

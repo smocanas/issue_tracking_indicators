@@ -10,3 +10,16 @@ services:
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: p5indicatori_user_registration }
+            
+    p5indicatori_main.menu_builder:
+        class: P5indicatori\UserBundle\Menu\MenuBuilder
+        arguments: ["@knp_menu.factory"]
+        
+    acme_main.menu.sidebar:
+        class: Knp\Menu\MenuItem
+        factory_service: p5indicatori_main.menu_builder
+        factory_method: createSidebarMenu
+        arguments: ["@request"]
+        scope: request
+        tags:
+            - { name: knp_menu.menu, alias: sidebar } # Named "sidebar" this time
