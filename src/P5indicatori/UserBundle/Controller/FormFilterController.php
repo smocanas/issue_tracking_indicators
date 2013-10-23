@@ -13,26 +13,24 @@ use P5indicatori\UserBundle\Document\Source;
 class FormFilterController extends DefaultController {
 
     public function addProjectFormAction($id) {
-        if (!empty($id)) {
-            $userSource = $this->get('doctrine_mongodb')
-                    ->getRepository('P5indicatoriUserBundle:Source')
-                    ->find($id);
-            $isUserOwner = $this->isUserOwner($userSource);
-            if ((count($userSource) > 0 ) && ($isUserOwner)) {
-                $formConfig['userSource'] = $userSource;
-                $formConfig['trackerTypeObject'] = $this->createDynamicObjectBySourceType($userSource);
-                $ProjectsFilterForm = $this->createForm(new ProjectsFilterFormType($formConfig));
-                
-                return $this->render('P5indicatoriUserBundle:BaseFilter:projectForm.html.twig', array(
-                            'form' => $ProjectsFilterForm->createView(),
-                            'page_title' => 'Projects',
-                ));
-            } else {
-                $message = "You are not owner of this source.";
-                return $this->render('P5indicatoriUserBundle:Sources:sourceErrorMessage.html.twig', array(
-                            'message' => $message,
-                ));
-            }
+        $userSource = $this->get('doctrine_mongodb')
+                ->getRepository('P5indicatoriUserBundle:Source')
+                ->find($id);
+        $isUserOwner = $this->isUserOwner($userSource);
+        if ((count($userSource) > 0 ) && ($isUserOwner)) {
+            $formConfig['userSource'] = $userSource;
+            $formConfig['trackerTypeObject'] = $this->createDynamicObjectBySourceType($userSource);
+            $ProjectsFilterForm = $this->createForm(new ProjectsFilterFormType($formConfig));
+
+            return $this->render('P5indicatoriUserBundle:BaseFilter:projectForm.html.twig', array(
+                        'form' => $ProjectsFilterForm->createView(),
+                        'page_title' => 'Projects',
+            ));
+        } else {
+            $message = "You are not owner of this source.";
+            return $this->render('P5indicatoriUserBundle:Sources:sourceErrorMessage.html.twig', array(
+                        'message' => $message,
+            ));
         }
     }
 

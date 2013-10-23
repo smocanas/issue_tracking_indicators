@@ -228,9 +228,15 @@ class Jira extends P5BaseConfigsAbstract {
         
         foreach ($projects as $key => $value) {
            if($value->getKey() == $projectKey) {
+                //getting actors from Project
                 foreach ($value->getActors() as $keyA => $valueA) {
                     $selectNameAndChoices['actors'][$valueA->getName()] = $valueA->getDisplayName();
                 }
+                //getting components from Project
+                foreach ($value->getComponents() as $keyC => $valueC) {
+                    $selectNameAndChoices['components'][$valueC->getComponentId()] = $valueC->getName();
+                }
+              
             }
         }
         return $selectNameAndChoices;
