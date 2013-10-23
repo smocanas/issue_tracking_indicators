@@ -28,13 +28,15 @@ class BaseFilterFormType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $source = $this->formConfig['userSource'];
 
-        $arrayFormOptions = $this->getArrayBySource($source);
-        var_dump($arrayFormOptions);
-        die;
-        $builder
-                ->add('projectName', 'choice', array(
-                    'choices' => $projectName
-                ));
+        $arrayFormOptions = $this->getArrayBySource($source); 
+        foreach ($arrayFormOptions as $key => $value) {
+            $builder
+                    ->add($key, 'choice', array(
+                        'choices' => $value,
+                        'multiple' => true
+                    ));           
+        }
+        
     }
     
     public function getName() {
@@ -43,7 +45,7 @@ class BaseFilterFormType extends AbstractType {
     
     public function getArrayBySource($source){
         $trackerTypeObject = $this->formConfig['trackerTypeObject'];
-        $formArraysForChoice = $trackerTypeObject->prepareArrayToBuildFormChoices($source);
+        $formArraysForChoice = $trackerTypeObject->prepareArrayToBuildFormChoices($source,$this->formConfig);
         return $formArraysForChoice;
     }
 }

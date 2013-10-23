@@ -200,13 +200,42 @@ class Jira extends P5BaseConfigsAbstract {
         return $this->getHttpResponseBasedOnUrl();
     }
     
-    public function prepareArrayToBuildFormChoices($source) {
+    /**
+     * Get all projects from given source and return an array of projects with
+     * theirs unique keys.
+     * @param object $source
+     * @return array
+     */
+    public function getSourceProjects($source = object) {
         $projects = $source->getProjectName();
-        $selectNameAndChoices;
-        foreach ($array as $key => $value) {
-            
+        foreach ($projects as $key => $value) {
+            $projectNames[$value->getKey()] = $value->getName();
         }
+        
+        return $projectNames;
     }
+    
+    /**
+     * 
+     * @param object $source
+     * @param array $formConfig
+     * @return array
+     */
+    public function prepareArrayToBuildFormChoices($source = object,$formConfig = array()) {
+        $projects = $source->getProjectName();   
+        $projectKey = $formConfig['projectKey'];
+        $selectNameAndChoices = array();
+        
+        foreach ($projects as $key => $value) {
+           if($value->getKey() == $projectKey) {
+                foreach ($value->getActors() as $keyA => $valueA) {
+                    $selectNameAndChoices['actors'][$valueA->getName()] = $valueA->getDisplayName();
+                }
+            }
+        }
+        return $selectNameAndChoices;
+    }
+    
 
 }
 

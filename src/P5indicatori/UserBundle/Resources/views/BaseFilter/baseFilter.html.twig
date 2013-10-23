@@ -1,27 +1,7 @@
-{# empty Twig template #}
-{% extends '::base.html.twig' %}
-{% block title %}{{ page_title }}{% endblock %}        
-
-    {% block stylesheets %}
-        {{ parent() }}
-        <link rel="stylesheet" href="{{ asset('costumCss/p5_indicatori.css') }}">
-        <link rel="stylesheet" href="{{ asset('costumCss/costumCssFosUserBundle/fosUserBundle.css') }}">
-    {% endblock %}
-
-{% block body %}
-    <div class="well container">
-        {% block userpanel %}
-            {{ parent() }}
-        {% endblock %}
-        {# select options #}
-            <div>
-                    <form class="form-horizontal login-form text-center" action="{{ path('p5indicatori_save_user_trakings_sources') }}" {{ form_enctype(form) }} method="POST">
+<form id="projectNamesForm" class="form-horizontal login-form text-center" action="{{path("p5indicatori_get_forms_by_project")}}" {{ form_enctype(form) }} method="POST">
                             {{ form_widget(form) }}
-                            <div class="control-group go-in-center" >
-                                <input class="btn" type="submit" name="submit" value="{{ 'Search'|trans }}" />
-                            </div>
-                        </form>
-                </div>
-    </div>
-{% endblock %}
-
+        <div class="control-group go-in-center" >
+            <input class="btn" type="submit" name="submit" value="{{ 'Search'|trans }}" />
+        </div>
+    </form>
+</div>
