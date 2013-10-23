@@ -199,6 +199,14 @@ class Jira extends P5BaseConfigsAbstract {
         $this->urlTermination = 'project/'.$pkey;
         return $this->getHttpResponseBasedOnUrl();
     }
+    
+    public function prepareArrayToBuildFormChoices($source) {
+        $projects = $source->getProjectName();
+        $selectNameAndChoices;
+        foreach ($array as $key => $value) {
+            
+        }
+    }
 
 }
 

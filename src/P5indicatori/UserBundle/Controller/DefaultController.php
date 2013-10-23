@@ -123,20 +123,7 @@ class DefaultController extends Controller
                 ->getRepository('P5indicatoriUserBundle:Source')
                 ->find($sourceId);
         if (count($userSource) > 0) {
-            $className = $userSource->getTrackingSourcesTypes();
-            $className = str_replace(array(' ', '.'), array('', 'Dot'), $className);
-            $trackingType = ucfirst($userSource->getTrackingTypes());
-            $classNameWithNamespace = '\\P5indicatori\UserBundle\P5TrackingIndicators\TrackingTypes\\' . $trackingType . '\\' . $className;
-            //getting from database
-            $redmineKey = $userSource->getRedmineUserKey();
-            $jiraLogin = $userSource->getJiraLogin();
-            $jiraPassword = $userSource->getJiraPassword();
-            $sourceUrl = $userSource->getUrlLink();
-
-            //createing object dynamically
-            $trackerTypeObject = new $classNameWithNamespace($this->container);
-            $trackerTypeObject->connect($redmineKey, $jiraLogin, $jiraPassword);
-            $trackerTypeObject->setSourceUrl($sourceUrl);
+            $trackerTypeObject = $this->createDynamicObjectBySourceType($userSource);
             $data = $trackerTypeObject->extractDatesLogic($userSource->getId());
             if (!empty($data)) {
                 $trackerTypeObject->saveDataProjects($userSource->getId(), $data);
@@ -155,6 +142,31 @@ class DefaultController extends Controller
         return $this->render('P5indicatoriUserBundle:Sources:userSources.html.twig', array(
                     'userSources' => $userSources,
         ));
+    }
+    
+    /**
+     * Return intialized object by source type. 
+     * Ex: (object class name: Jira4Dot4, Redmine1Dot3 etc.)
+     * @param object $source
+     * @return \P5indicatori\UserBundle\Controller\classNameWithNamespace
+     */
+    public function createDynamicObjectBySourceType($userSource = object) {
+        $className = $userSource->getTrackingSourcesTypes();
+        $className = str_replace(array(' ', '.'), array('', 'Dot'), $className);
+        $trackingType = ucfirst($userSource->getTrackingTypes());
+        $classNameWithNamespace = '\\P5indicatori\UserBundle\P5TrackingIndicators\TrackingTypes\\' . $trackingType . '\\' . $className;
+        //getting from database
+        $redmineKey = $userSource->getRedmineUserKey();
+        $jiraLogin = $userSource->getJiraLogin();
+        $jiraPassword = $userSource->getJiraPassword();
+        $sourceUrl = $userSource->getUrlLink();
+
+        //createing object dynamically
+        $trackerTypeObject = new $classNameWithNamespace($this->container);
+        $trackerTypeObject->connect($redmineKey, $jiraLogin, $jiraPassword);
+        $trackerTypeObject->setSourceUrl($sourceUrl);
+
+        return $trackerTypeObject;
     }
    
 }

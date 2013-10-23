@@ -19,7 +19,7 @@
         {% for userSource in userSources %}
         <tr>
             <td>{{ loop.index }}</td>
-            <td>{{ userSource.sourceName }}</td>
+            <td><a href="{{ path("p5indicatori_add_forms_filter", {"id":userSource.id}) }}">{{ userSource.sourceName }}</a></td>
             <td>{{ userSource.trackingSourcesTypes }}</td>
             <td><a href="{{ userSource.urlLink }}">{{ userSource.urlLink }}</a></td>         
             <td><a herf="#">Reload</a></td>
