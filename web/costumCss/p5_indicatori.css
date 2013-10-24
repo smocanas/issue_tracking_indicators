@@ -42,3 +42,8 @@
 .inputWidthDatePicker{
     width: 179px;
 }
+
+#restOfTheForm, .control-group{
+    display: inline-block;
+    margin-left: 10px;
+}

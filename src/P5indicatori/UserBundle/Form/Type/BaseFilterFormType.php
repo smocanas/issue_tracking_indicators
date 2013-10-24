@@ -40,7 +40,8 @@ class BaseFilterFormType extends AbstractType {
             $builder
                     ->add($key, 'choice', array(
                         'choices' => $value,
-                        'multiple' => true
+                        'multiple' => true,
+                        'required' => false
             ));
         }
         $builder->add('projectKey', 'hidden', array(

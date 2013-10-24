@@ -3,12 +3,11 @@
 {% form_theme form 'P5indicatoriUserBundle:Default:form_div_layout.html.twig' %}
 {% block title %}{{ page_title }}{% endblock %}        
 {% block contentBody %}
-            <div id="searchForm">
-                <form id="projectNamesForm" class="form-horizontal login-form text-center" action="{{path("p5indicatori_get_forms_by_project")}}" {{ form_enctype(form) }} method="POST">
+<div id="searchForm">
+    <form id="projectNamesForm" class="form-horizontal login-form text-center" action="{{path("p5indicatori_get_forms_by_project")}}" {{ form_enctype(form) }} method="POST">
                             {{ form_widget(form) }}
-                        </form>
-                </div>
-            <div id="restOfTheForm"></div>
-    </div>
+    </form>
+    <div id="restOfTheForm"></div>
+</div>
 {% endblock %}
 
