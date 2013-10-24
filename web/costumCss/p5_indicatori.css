@@ -38,3 +38,7 @@
 .no-close .ui-dialog-titlebar-close {
     display: none 
 }
+
+.inputWidthDatePicker{
+    width: 179px;
+}

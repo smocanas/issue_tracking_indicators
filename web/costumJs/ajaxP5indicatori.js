@@ -118,6 +118,7 @@
 
             ajaxRequest.done(function(response) {
                 $("#restOfTheForm").html(response);
+                $(".dp3").datepicker();
             });
 
             ajaxRequest.fail(function(jqXHR, textStatus) {

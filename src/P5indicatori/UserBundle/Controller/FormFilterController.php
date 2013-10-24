@@ -67,5 +67,10 @@ class FormFilterController extends DefaultController {
             ));
         }
     }
+    
+    public function querySourceAction(){
+       $postedElements = $this->getRequest()->request->all(); 
+       var_dump($postedElements);die;
+    }
 
 }

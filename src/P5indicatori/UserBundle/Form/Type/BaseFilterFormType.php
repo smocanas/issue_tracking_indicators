@@ -27,18 +27,27 @@ class BaseFilterFormType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $source = $this->formConfig['userSource'];
+        
+        $datePickerInputs = array('createdAtBefore','createdAtAfter','updatedAtBefore','updatedAtAfter');   
+        foreach ($datePickerInputs as $valueDateName) {
+            $builder->add($valueDateName, new CustomFormFieldType\DatePickerType, array(
+                'required' => false,
+            ));
+        }
 
-        $arrayFormOptions = $this->getArrayBySource($source); 
+        $arrayFormOptions = $this->getArrayBySource($source);
         foreach ($arrayFormOptions as $key => $value) {
             $builder
                     ->add($key, 'choice', array(
                         'choices' => $value,
                         'multiple' => true
-                    ));           
+            ));
         }
-        
+        $builder->add('projectKey', 'hidden', array(
+            'data' => $this->formConfig['projectKey'],
+        ));
     }
-    
+
     public function getName() {
         return 'base_filter_form';
     } 

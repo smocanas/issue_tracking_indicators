@@ -22,3 +22,7 @@ p5indicatori_get_user_sources:
 p5indicatori_get_forms_by_project:
     pattern: /get-forms
     defaults: { _controller: P5indicatoriUserBundle:FormFilter:addFormsByProjectName }
+
+p5indicatori_query_source:
+    pattern: /guery-source
+    defaults: { _controller: P5indicatoriUserBundle:FormFilter:querySource }
