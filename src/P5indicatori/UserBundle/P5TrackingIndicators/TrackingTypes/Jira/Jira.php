@@ -242,6 +242,52 @@ class Jira extends P5BaseConfigsAbstract {
         return $selectNameAndChoices;
     }
     
-
+    /**
+     * Creating a JQL depending on elements submited from the form.
+     * @param array $submitedData
+     * @return array
+     */
+    public function getSourceStatistics($submitedData = array()){
+        $assignee = '';
+        $projectKey = $submitedData['projectKey'];
+        $assignee = $this->generateAssigneeJQLstring($submitedData);
+        $components = '';
+        $jql = "jql=project=".$projectKey.$assignee;
+        
+        $this->urlTermination = 'search?'.$jql;
+        return $this->getHttpResponseBasedOnUrl();
+    }
+    
+    /**
+     * 
+     * @param array $submitedData
+     * @return string
+     */
+    public function generateAssigneeJQLstring($submitedData = array()) {
+        $partOfJQL = '';
+        if (!empty($submitedData['actors'])) {
+            foreach ($submitedData['actors'] as $key => $value) {
+                $operator = 'or';
+                if ($key == 0) {
+                    $operator = 'and';
+                }
+                $partOfJQL .= '+' . $operator . '+assignee=' . $value;
+            }
+        }
+        return $partOfJQL;
+    }
+    
+    /**
+     * 
+     * @param array $components
+     * @return string
+     */
+    public function generateComponentsJQLstring($components = array()){
+        $partOfJQL = '';
+        foreach ($components as $value) {
+            
+        }
+        return $partOfJQL;
+    }
 }
 

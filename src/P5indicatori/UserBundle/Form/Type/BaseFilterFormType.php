@@ -47,6 +47,10 @@ class BaseFilterFormType extends AbstractType {
         $builder->add('projectKey', 'hidden', array(
             'data' => $this->formConfig['projectKey'],
         ));
+
+        $builder->add('sourceId', 'hidden', array(
+            'data' => $source->getId(),
+        ));
     }
 
     public function getName() {

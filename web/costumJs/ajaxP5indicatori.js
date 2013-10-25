@@ -101,7 +101,8 @@
         var ajaxRequest = sendFormDataWithAjax($(this));
 
         ajaxRequest.done(function(response) {
-           
+            //temporary display
+           $('#mainFormDiv').html("<p>"+JSON.stringify(response.statisticData)+"</p>");
         });
 
         ajaxRequest.fail(function(jqXHR, textStatus) {

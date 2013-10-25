@@ -10,6 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use P5indicatori\UserBundle\Document\User;
 use P5indicatori\UserBundle\Document\Source;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 class FormFilterController extends DefaultController {
 
     public function addProjectFormAction($id) {
@@ -67,10 +69,20 @@ class FormFilterController extends DefaultController {
             ));
         }
     }
-    
-    public function querySourceAction(){
-       $postedElements = $this->getRequest()->request->all(); 
-       var_dump($postedElements);die;
+    /**
+     * Submiting filter form with ajax.
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function querySourceAction() {
+        $response = array();
+        $postedElements = $this->getRequest()->request->all();
+        $id = $postedElements['base_filter_form']['sourceId'];
+        $userSource = $this->get('doctrine_mongodb')
+                ->getRepository('P5indicatoriUserBundle:Source')
+                ->find($id);
+        $trackerTypeObject = $this->createDynamicObjectBySourceType($userSource);
+        $response['statisticData'] = $trackerTypeObject->getSourceStatistics($postedElements['base_filter_form']);
+        return new JsonResponse($response);
     }
 
 }
