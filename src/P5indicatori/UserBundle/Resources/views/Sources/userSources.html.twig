@@ -2,31 +2,37 @@
 {% extends '::base.html.twig' %}
         
 {% block contentBody %}
-<table class="table table-striped">
-    <caption>User Sources</caption>
-    <thead>
-        <tr>
-            <th><strong>#</strong></th>
-            <th><strong>Source Name</strong></th>
-            <th><strong>Source Type</strong></th>
-            <th><strong>Source Link</strong></th>
-            <th><strong>Reload</strong></th>
-            <th><strong>Edit</strong></th>
-            <th><strong>Delete</strong></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for userSource in userSources %}
-        <tr>
-            <td>{{ loop.index }}</td>
-            <td><a href="{{ path("p5indicatori_add_forms_filter", {"id":userSource.id}) }}">{{ userSource.sourceName }}</a></td>
-            <td>{{ userSource.trackingSourcesTypes }}</td>
-            <td><a href="{{ userSource.urlLink }}">{{ userSource.urlLink }}</a></td>         
-            <td><a herf="#">Reload</a></td>
-            <td><a herf="#">Edit</a></td>
-            <td><a herf="#">Delete</a></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    {% if userSources is not empty %}
+        <table class="table table-striped">
+            <caption>User Sources</caption>
+            <thead>
+                <tr>
+                    <th><strong>#</strong></th>
+                    <th><strong>Source Name</strong></th>
+                    <th><strong>Source Type</strong></th>
+                    <th><strong>Source Link</strong></th>
+                    <th><strong>Reload</strong></th>
+                    <th><strong>Edit</strong></th>
+                    <th><strong>Delete</strong></th>
+                </tr>
+            </thead>
+            <tbody>
+                    {% for userSource in userSources %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td><a href="{{ path("p5indicatori_add_forms_filter", {"id":userSource.id}) }}">{{ userSource.sourceName }}</a></td>
+                    <td>{{ userSource.trackingSourcesTypes }}</td>
+                    <td><a href="{{ userSource.urlLink }}">{{ userSource.urlLink }}</a></td>         
+                    <td><a herf="#">Reload</a></td>
+                    <td><a herf="#">Edit</a></td>
+                    <td><a herf="#">Delete</a></td>
+                </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info">
+            You don`t have sources, add one.
+        </div>
+    {% endif %}
 {% endblock %}  

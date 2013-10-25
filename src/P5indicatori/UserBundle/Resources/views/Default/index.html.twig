@@ -7,15 +7,13 @@
     {% endblock %}
         
     {% block contentBody %}
-        <div id="mainFormDiv">
-            <div class="text-center">
-                <button id="add_source_form" class="button btn-small btn-primary"> Add source </button>
-            </div>
-            <div id="source_form" class="source-form-off">
-                <form id="selectSourceType" class="form-horizontal login-form text-center" action="{{ path('p5indicatori_get_user_trakings_sources') }}" {{ form_enctype(form) }} method="POST">
+        <div class="text-center">
+            <button id="add_source_form" class="button btn-small btn-primary"> Add source </button>
+        </div>
+        <div id="source_form" class="source-form-off">
+            <form id="selectSourceType" class="form-horizontal login-form text-center" action="{{ path('p5indicatori_get_user_trakings_sources') }}" {{ form_enctype(form) }} method="POST">
                      {{ form_widget(form) }}
-                    </form>
-                    <div id="formType"></div>
-                </div>
-            </div>
+            </form>
+            <div id="formType"></div>
+        </div>
     {% endblock %}               

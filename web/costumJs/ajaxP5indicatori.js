@@ -41,7 +41,7 @@
     /**
      * Add source via ajax
      */
-    $(document).unbind("submit").on("submit", "#addSourceForm", function(e) {
+    $(document).on("submit", "#addSourceForm", function(e) {
         var ajaxRequest = sendFormDataWithAjax($(this));
         
         ajaxRequest.done(function(response) {
@@ -97,7 +97,7 @@
     });
     
     
-    $(document).unbind("submit").on("submit", "#baseFilterForm", function(e) {
+    $(document).on("submit", "#baseFilterForm", function(e) {
         var ajaxRequest = sendFormDataWithAjax($(this));
 
         ajaxRequest.done(function(response) {
