@@ -33,21 +33,6 @@
         }
 
     });
-    /**
-     * Show loader with dark display effect for ajax requests.
-     * @returns {undefined}
-     */
-    function showLoader() {
-        $("#freezeLoader").addClass("loader-dark-class");
-    }
-
-    /**
-     * Hide loader with dark display effect for ajax requests.
-     * @returns {undefined}
-     */
-    function hideLoader() {
-        $("#freezeLoader").removeClass();
-    }
 
     $(document).ajaxStop(function() {
         hideLoader();
@@ -57,17 +42,8 @@
      * Add source via ajax
      */
     $(document).unbind("submit").on("submit", "#addSourceForm", function(e) {
-        var formActionUrl = $(this).attr('action');
-        var ajaxRequest = $.ajax({
-            url: formActionUrl,
-            type: "POST",
-            data: $(this).serialize(),
-            context: $(this),
-            beforeSend: function() {
-                showLoader();
-            }
-        });
-
+        var ajaxRequest = sendFormDataWithAjax($(this));
+        
         ajaxRequest.done(function(response) {
             if (response.success) {
                 setSuccMessage("Source added succesfully.")
@@ -88,18 +64,6 @@
 
         return false;
     });
-
-    function setSuccMessage(succMsg) {
-        $("#messageAlert")
-                .html('<div id="hide"  class="alert alert-success">' + succMsg + '</div>')
-                .show();
-        $("#hide").delay(5000).fadeOut(300);
-    }
-
-    function setErrMessage(errMsg) {
-        $("#messageAlert")
-                .html('<div class="alert alert-error">' + errMsg + '</div>').show();
-    }
     
     $(document).on("change", "#project_filter_form_projectName", function() {
         var optionSelected = $(this).find('option:selected');
@@ -130,6 +94,21 @@
             $("#restOfTheForm").empty();
         }
 
+    });
+    
+    
+    $(document).unbind("submit").on("submit", "#baseFilterForm", function(e) {
+        var ajaxRequest = sendFormDataWithAjax($(this));
+
+        ajaxRequest.done(function(response) {
+           
+        });
+
+        ajaxRequest.fail(function(jqXHR, textStatus) {
+            setErrMessage("Request failed: " + textStatus);
+        });
+
+        return false;
     });
 })(jQuery);
 

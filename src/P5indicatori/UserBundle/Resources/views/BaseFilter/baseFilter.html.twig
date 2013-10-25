@@ -1,5 +1,5 @@
 {% form_theme form 'P5indicatoriUserBundle:Default:form_div_layout.html.twig' %}
-<form id="projectNamesForm" class="form-horizontal login-form" action="{{path("p5indicatori_query_source")}}" {{ form_enctype(form) }} method="POST">
+<form id="baseFilterForm" class="form-horizontal login-form" action="{{path("p5indicatori_query_source")}}" {{ form_enctype(form) }} method="POST">
                             {{ form_widget(form) }}
         <div class="control-group go-in-center" >
             <input class="btn" type="submit" name="submit" value="{{ 'Search'|trans }}" />
